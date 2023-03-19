@@ -1,0 +1,134 @@
+$logo-url: 'https://www.vermeg.com/wp-content/uploads/2020/06/Logo_wh.png';
+
+$primary-color: #f64949c4;
+$secondary-color: #1c2b5a;
+
+
+html,
+body {
+  background: #f64949c4;
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 125, 175, 0.568) 1%,
+    $secondary-color 100%
+  );
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  height: 370px;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 400px;
+  background-color: #343a40 !important;
+  animation: fadeInDown 0.5s;
+  &.in-down {
+    animation: fadeInDown 0.5s;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+
+      .logo-altran {
+        max-width: 250px;
+      }
+
+      .quiz-title {
+        margin-left: 15px;
+        font-size: 1.5rem;
+        color: $primary-color;
+      }
+    }
+  }
+
+  .card-body {
+    form {
+      .input-group {
+        margin-bottom: 20px;
+
+        .input-group-prepend {
+          .input-group-text {
+            background-color: $primary-color;
+            color: #fff;
+            border: none;
+          }
+        }
+
+        input[type='text'],
+        input[type='password'] {
+          background-color: #f5f5f5;
+          color: #333;
+          font-weight: bold;
+          border: none;
+          border-radius: 5px;
+          padding: 12px;
+        }
+
+        .invalid-feedback {
+          display: none;
+          color: red;
+          font-weight: bold;
+          margin-top: 5px;
+        }
+      }
+
+      .form-group {
+        input[type='submit'] {
+          background-color: $primary-color;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          padding: 12px;
+          cursor: pointer;
+          transition: background-color 0.2s ease-in-out;
+          &:hover {
+            background-color: darken(rgb(147, 64, 64), 10%);
+          }
+        }
+      }
+    }
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
