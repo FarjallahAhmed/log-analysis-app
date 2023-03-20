@@ -1,5 +1,7 @@
 // header.component.ts
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthentificationService } from 'src/app/auth/services/authentification.service';
 import { HeaderService } from '../../services/header.service';
 //import { User } from '../../models/user.model';
 
@@ -11,7 +13,9 @@ import { HeaderService } from '../../services/header.service';
 export class HeaderComponent implements OnInit {
   username!: string;
 
-  constructor(private headerService: HeaderService) { }
+  constructor(private headerService: HeaderService,
+              private authService: AuthentificationService,
+              private route: Router) { }
 
   ngOnInit() {
     // Récupérer les informations de l'utilisateur depuis le service
@@ -21,8 +25,9 @@ export class HeaderComponent implements OnInit {
     this.username = "Ahmed" //user.name;
   }
 
-  logout() {
-    // Appeler la fonction de déconnexion du service
-    //this.headerService.logout();
+  onLogOut(): void{
+    this.authService.logout();
+    this.route.navigateByUrl("/login");
+    console.log('islogedout:', this.authService.isLoggedIn());
   }
 }

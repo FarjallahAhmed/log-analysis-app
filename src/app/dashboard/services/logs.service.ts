@@ -29,4 +29,8 @@ export class LogsService {
 
     return this.http.post(`${this.baseUrl}`,requestBody);
   }
+
+  configLogs(){
+
+  }
 }

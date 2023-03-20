@@ -29,7 +29,7 @@ export class AuthentificationComponent implements OnInit {
       email: [null, Validators.required],
       password: [null, Validators.required]
     });
-    console.log('islogedinoninit:', this.authService.isLoggedIn());
+
   }
 
   onSubmit(): void {
@@ -46,9 +46,6 @@ export class AuthentificationComponent implements OnInit {
       }
     });
   }
-  onLogOut(): void{
-    this.authService.logout();
-    console.log('islogedout:', this.authService.isLoggedIn());
-  }
+
 
 }

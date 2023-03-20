@@ -1,0 +1,138 @@
+<!-- Title-->
+<div class="title">
+  <h3>{{'Tableau de bord'  }}</h3>
+</div>
+<!-- Content-->
+<div class="content">
+  <div class="row">
+    <div class="col-md-4 col-xl-3 ">
+      <div class="card   card-box bg-red">
+        <div class=" inner">
+          <h5 class="m-b-20">ERROR</h5>
+          <h2 class="text-left"><span>{{totalError}}</span></h2>
+        </div>
+        <div class="icon">
+          <i class="fa fa-users"></i>
+        </div>
+        <a href="" data-toggle="modal" data-target="" class="card-box-footer" >View More <i
+            class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-md-4 col-xl-3 ">
+      <div class="card  card-box bg-blue">
+        <div class=" inner">
+          <h5 class="m-b-20">INFO</h5>
+          <h2 class="text-left"><span>{{totalInfo}}</span></h2>
+        </div>
+        <div class="icon">
+          <i class="fa fa-building"></i>
+        </div>
+        <a href="" data-toggle="modal" data-target="" class="card-box-footer">View More <i
+            class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-md-4 col-xl-3 ">
+      <div class="card bg-c-yellow  card-box bg-yellow">
+        <div class=" inner">
+          <h5 class="m-b-20">WARN</h5>
+          <h2 class="text-left"><span>{{totalWarn}}</span></h2>
+        </div>
+        <div class="icon">
+          <i class="fa fa-balance-scale"></i>
+        </div>
+        <a href="" data-toggle="modal" data-target="" class="card-box-footer" >View More <i
+            class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+    <div class="col-md-4 col-xl-3 ">
+      <div class="card bg-grey  card-box ">
+        <div class=" inner">
+          <h5 class="m-b-20">Exception</h5>
+          <h2 class="text-left"><span></span></h2>
+        </div>
+        <div class="icon">
+          <i class="fa fa-cogs"></i>
+        </div>
+        <a href="" data-toggle="modal" data-target="" class="card-box-footer" >View More <i
+            class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card-card-4  z-depth-3">
+        <div class="card-body text-center bg-altran rounded-top">
+          <h5 class="text-light"><strong>Log Level</strong></h5>
+        </div>&nbsp;&nbsp;
+        <p-chart type="bar" [data]="dataline"></p-chart>&nbsp;&nbsp;
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card-card-4  z-depth-3">
+        <div class="card-body text-center bg-altran rounded-top">
+          <h5 class="text-light"><strong>Exception Pie</strong></h5>
+        </div>&nbsp;&nbsp;
+
+
+
+      </div>
+    </div>
+  </div>&nbsp;&nbsp;
+  <div class="row">
+    <!-- Actions list Table -->
+    <div>
+      <div class="card-card-4  z-depth-3">
+        <div class="card-body text-center bg-altran rounded-top">
+          <h5 class="text-light"><strong></strong>
+            <button type="button" id="add-risk-btn" class="btn btn-primary btn-add-add" title="Afficher les actions"
+              data-toggle="modal" data-target="#addActionsModal"
+              style="float:right; color: #007EAF;">
+              <i class="fa fa-align-justify"></i>
+              &nbsp;</button></h5>
+        </div>
+        <div class="card-body">
+
+          <div class="table-responsive-lg">
+            <table class="table table-bordered table-striped table-hover">
+
+
+            </table>
+            <!-- No data in table message-->
+            <div >
+              <div class="nodata-box">
+                <div class="nodata-text" id="no-data-available"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Risks list Table -->
+      &nbsp;&nbsp;
+      <div class="card-card-4  z-depth-3">
+        <div class="card-body text-center bg-altran rounded-top">
+          <h5 class="text-light"><strong></strong>
+            <button type="button" id="add-risk-btn" class="btn btn-primary btn-add-add" title="Afficher les risques"
+              data-toggle="modal" data-target="#addActionsModal"
+              style="float:right; color: #007EAF;">
+              <i class="fa fa-align-justify"></i>&nbsp;</button></h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive-lg">
+            <table class="table table-bordered table-striped table-hover">
+              <thead class="row-border hover">
+
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

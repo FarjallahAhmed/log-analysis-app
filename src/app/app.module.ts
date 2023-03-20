@@ -9,7 +9,7 @@ import { LayoutModule } from './layout/layout.module';
 import { AuthentificationComponent } from './auth/authentification/authentification.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthentificationService } from './auth/services/authentification.service';
-import { AuthGuard } from './core/auth.guard';
+import { AuthGuard } from './core/guards/auth.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { httpInterceptBasic } from './core/intercepts';
 
