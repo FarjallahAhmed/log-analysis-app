@@ -10,7 +10,7 @@ export class ChartService {
 
 
 
-  private baseUrl = "http://localhost:9200";
+  private baseUrl = "http://localhost:9200/default_log_index/_search";
 
   constructor(private http: HttpClient) { }
 
@@ -28,6 +28,22 @@ export class ChartService {
           loglevel: type
         }
       }
+    };
+
+    return this.http.post(`${this.baseUrl}`,requestBody);
+  }
+
+  getUniqueFieldValues(fieldName : string): Observable<Object> {
+
+    const requestBody = {
+        size: 0,
+        aggs: {
+          unique_values: {
+            terms: {
+              field: fieldName
+            }
+          }
+        }
     };
 
     return this.http.post(`${this.baseUrl}`,requestBody);
