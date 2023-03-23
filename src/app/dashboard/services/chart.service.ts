@@ -9,7 +9,8 @@ export class ChartService {
 
 
 
-  private baseUrl = "http://localhost:9200/default_log_index/_search";
+
+  private baseUrl = "http://localhost:9200";
 
   constructor(private http: HttpClient) { }
 
@@ -30,9 +31,5 @@ export class ChartService {
     };
 
     return this.http.post(`${this.baseUrl}`,requestBody);
-  }
-
-  configLogs(){
-
   }
 }

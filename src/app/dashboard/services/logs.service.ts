@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +10,24 @@ import { Observable } from 'rxjs';
 export class LogsService {
 
 
+
+
   private baseUrl = "http://localhost:9200/default_log_index/_search";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
 
   getLogs(): Observable<Object> {
-    return this.http.get(`${this.baseUrl}`);
+
+    const body = {
+      size: 369,
+      query: {
+        match_all: {},
+
+      }
+    };
+
+    return this.http.post(`${this.baseUrl}`, body);
   }
 
   getLogsByType(type : string): Observable<Object> {
@@ -30,7 +43,24 @@ export class LogsService {
     return this.http.post(`${this.baseUrl}`,requestBody);
   }
 
-  configLogs(){
+  getUniqueFieldValues(fieldName : string): Observable<Object> {
 
+    const requestBody = {
+        size: 0,
+        aggs: {
+          unique_values: {
+            terms: {
+              field: fieldName
+            }
+          }
+        }
+    };
+
+    return this.http.post(`${this.baseUrl}`,requestBody);
   }
+
+
+
+
+
 }

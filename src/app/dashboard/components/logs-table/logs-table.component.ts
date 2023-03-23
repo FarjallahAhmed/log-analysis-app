@@ -19,11 +19,28 @@ export class LogsTableComponent implements OnInit{
   totalError!: number;
   totalWarn!: number;
   totalInfo!: number;
+  logsByTypeTotlal!: number[];
+  logsLevel!: string[];
+
   constructor(private logsService: LogsService){
   }
 
   ngOnInit(): void {
     this.getAllLogs();
+    this.logsService.getUniqueFieldValues("loglevel").subscribe(data => {
+      this.response = data;
+      const len = this.response.aggregations.unique_values.buckets.length;
+      this.logsByTypeTotlal = [];
+      this.logsLevel = [];
+      for(let i = 0; i < len; i++) {
+        const bucket = this.response.aggregations.unique_values.buckets[i];
+        this.logsByTypeTotlal.push(bucket["doc_count"]);
+        this.logsLevel.push(bucket["key"]);
+        console.log(this.logsByTypeTotlal );
+        console.log(this.logsLevel);
+      }
+
+    });
     this.getTotalLogsByType("ERROR").subscribe(totalByType => {
       this.totalError = totalByType
     });
@@ -33,14 +50,13 @@ export class LogsTableComponent implements OnInit{
     this.getTotalLogsByType("WARN").subscribe(totalByType => {
       this.totalWarn = totalByType
     });
-
   }
   getAllLogs(){
     this.logsService.getLogs().subscribe(data => {
       this.response = data;
       this.totalLog = this.response.hits.total.value;
       this.logs = this.response.hits.hits;
-
+      console.log(this.logs);
     });
   }
 
