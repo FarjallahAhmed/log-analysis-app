@@ -48,7 +48,7 @@
       <div class="card bg-grey  card-box ">
         <div class=" inner">
           <h5 class="m-b-20">Exception</h5>
-          <h2 class="text-left"><span></span></h2>
+          <h2 class="text-left"><span> {{ExeceptionLength}} </span></h2>
         </div>
         <div class="icon">
           <i class="fa fa-cogs"></i>
@@ -77,53 +77,37 @@
     </div>
   </div>&nbsp;&nbsp;
   <div class="row">
-    <!-- Actions list Table -->
     <div>
-      <div class="card-card-4  z-depth-3">
-        <div class="card-body text-center bg-altran rounded-top">
-          <h5 class="text-light"><strong></strong>
-            <button type="button" id="add-risk-btn" class="btn btn-primary btn-add-add" title="Afficher les actions"
-              data-toggle="modal" data-target="#addActionsModal"
-              style="float:right; color: #007EAF;">
-              <i class="fa fa-align-justify"></i>
-              &nbsp;</button></h5>
-        </div>
-        <div class="card-body">
-
-          <div class="table-responsive-lg">
-            <table class="table table-bordered table-striped table-hover">
-
-
-            </table>
-            <!-- No data in table message-->
-            <div >
-              <div class="nodata-box">
-                <div class="nodata-text" id="no-data-available"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Risks list Table -->
       &nbsp;&nbsp;
       <div class="card-card-4  z-depth-3">
         <div class="card-body text-center bg-altran rounded-top">
-          <h5 class="text-light"><strong></strong>
+          <h5 class="text-light"><strong>Logs Table</strong>
             <button type="button" id="add-risk-btn" class="btn btn-primary btn-add-add" title="Afficher les risques"
               data-toggle="modal" data-target="#addActionsModal"
               style="float:right; color: #007EAF;">
-              <i class="fa fa-align-justify"></i>&nbsp;</button></h5>
+              <i class="fa fa-align-justify"></i>&nbsp;{{'Voir tout' }}</button></h5>
         </div>
         <div class="card-body">
           <div class="table-responsive-lg">
             <table class="table table-bordered table-striped table-hover">
               <thead class="row-border hover">
-
+                <tr>
+                  <th style="width: 7%;">Exception</th>
+                </tr>
               </thead>
-              <tbody>
+              <tbody *ngFor="let exception of ErrorlogsMessage ; let i = index">
+                <tr >
+                  <td *ngIf="exception">{{exception}}</td>
+                </tr>
+                <tr>
 
+                  <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+                  <p-dialog header="StackTraceLog" [(visible)]="visible" [style]="{ width: '50vw', height: '300px' }">
+                      <p *ngFor="let stackTrace of StackTraceLog[i]">
+                          {{stackTrace}}
+                      </p>
+                  </p-dialog>
+                </tr>
               </tbody>
             </table>
 
@@ -132,5 +116,6 @@
 
       </div>
     </div>
-  </div>
+
+  </div>&nbsp;&nbsp;
 </div>

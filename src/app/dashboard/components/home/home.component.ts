@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ChartService } from '../../services/chart.service';
+import { LogsService } from '../../services/logs.service';
 
 @Component({
   selector: 'app-home',
@@ -23,14 +24,32 @@ export class HomeComponent implements OnInit{
   totalInfo!: number;
   response: any;
   ErrorMessage!: any[];
+  Exceptions!: any[];
+  ExeceptionLength!: number;
+  ErrorlogsMessage!: any;
+  StackTraceLog!: any;
+  visible!: boolean;
 
 
-
-  constructor(private chatService : ChartService){}
+  constructor(private chatService : ChartService,private logService: LogsService){}
 
   ngOnInit(): void {
 
+    this.getExceptions().subscribe(data=>{
 
+      this.response = data;
+      this.ExeceptionLength = this.response.length;
+      const errorMessage: string[] = [];
+      const stackTrace: string[] = [];
+      this.response.forEach((obj: any) => {
+        errorMessage.push(obj.errorMessage);
+        stackTrace.push(obj.stackTrace);
+      });
+      console.table(errorMessage);
+      console.table(stackTrace);
+      this.ErrorlogsMessage = errorMessage;
+      this.StackTraceLog = stackTrace;
+    })
     this.getTotalLogsByType("ERROR").subscribe(totalByType => {
       this.totalError = totalByType;
       this.createChart();
@@ -53,13 +72,15 @@ export class HomeComponent implements OnInit{
               keys.push(obj.key);
               values.push(obj.doc_count);
       });
-      console.table(keys);
-      console.table(values);
+      //console.table(keys);
+      //console.table(values);
 
       this.createChartErrorMessage(keys,values);
     });
   }
-
+  showDialog() {
+    this.visible = true;
+}
   createChart() {
     this.dataline = {
       labels: ['ERROR', 'INFO', 'WARN'],
@@ -129,5 +150,19 @@ export class HomeComponent implements OnInit{
       }),
     );
   }
+
+
+  getExceptions(): Observable<Object>{
+    return this.logService.getExceptionLogs().pipe(
+      map(data => {
+        this.response = data;
+        const exception = this.response;
+
+        return exception;
+      })
+    );
+  }
+
+
 
 }

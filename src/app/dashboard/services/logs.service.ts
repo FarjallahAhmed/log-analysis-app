@@ -14,6 +14,8 @@ export class LogsService {
 
   private baseUrl = "http://localhost:9200/default_log_index/_search";
 
+  private baseUrlSpring = "http://localhost:8080/api/logs/exceptionlogs";
+
   constructor(private http: HttpClient) {}
 
 
@@ -57,6 +59,10 @@ export class LogsService {
     };
 
     return this.http.post(`${this.baseUrl}`,requestBody);
+  }
+
+  getExceptionLogs(): Observable<Object>{
+    return this.http.get(this.baseUrlSpring);
   }
 
 

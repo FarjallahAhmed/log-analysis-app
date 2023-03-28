@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthentificationService } from './auth/services/authentification.service';
 import { AuthGuard } from './core/guards/auth.guard';
 import { httpInterceptBasic } from './core/intercepts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { httpInterceptBasic } from './core/intercepts';
     AppRoutingModule,
     LayoutModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthentificationService,

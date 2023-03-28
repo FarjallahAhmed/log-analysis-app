@@ -10,8 +10,8 @@ import { FilterComponent } from './components/filter/filter.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import { LayoutModule } from '../layout/layout.module';
 import { HomeComponent } from './components/home/home.component';
-
-
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -29,7 +29,9 @@ import { HomeComponent } from './components/home/home.component';
     CommonModule,
     DashboardRoutingModule,
     LayoutModule,
-    ChartModule
+    ChartModule,
+    DialogModule,
+    ButtonModule
   ]
 })
 export class DashboardModule { }
