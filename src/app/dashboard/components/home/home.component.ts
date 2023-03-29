@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit{
   dataline: any;
   ErrorPie: any;
   options: any;
-
+  listLogs!: any;
+  pageClient!: any;
   totalByType!: number;
   totalError!: number;
   totalWarn!: number;
@@ -30,11 +31,24 @@ export class HomeComponent implements OnInit{
   StackTraceLog!: any;
   visible!: boolean;
 
+  total!: number;
+  item = 5 ;
+  selectedPage = 0;
+  pageContent!: any;
+  p: number = 1;
+
+  totalException!: number;
+  itemException = 5 ;
+  selectedPageException = 0;
+  pageContentException!: any;
+  pException: number = 1;
+
 
   constructor(private chatService : ChartService,private logService: LogsService){}
 
   ngOnInit(): void {
-
+    this.pageContent = [];
+    this.reloadData();
     this.getExceptions().subscribe(data=>{
 
       this.response = data;
@@ -45,8 +59,8 @@ export class HomeComponent implements OnInit{
         errorMessage.push(obj.errorMessage);
         stackTrace.push(obj.stackTrace);
       });
-      console.table(errorMessage);
-      console.table(stackTrace);
+      //console.table(errorMessage);
+      //console.table(stackTrace);
       this.ErrorlogsMessage = errorMessage;
       this.StackTraceLog = stackTrace;
     })
@@ -80,7 +94,7 @@ export class HomeComponent implements OnInit{
   }
   showDialog() {
     this.visible = true;
-}
+  }
   createChart() {
     this.dataline = {
       labels: ['ERROR', 'INFO', 'WARN'],
@@ -156,13 +170,35 @@ export class HomeComponent implements OnInit{
     return this.logService.getExceptionLogs().pipe(
       map(data => {
         this.response = data;
-        const exception = this.response;
-
+        const exception = this.response.content;
+        this.totalException = this.response.totalElements;
+        this.pageContentException = this.response.content;
         return exception;
       })
     );
   }
 
 
+  getSimpleLogs(){
+    this.logService.getsimpleLogs().subscribe(data =>{
+      this.pageClient = data;
+      this.total = this.pageClient.totalElements;
+      this.pageContent = this.pageClient.content;
+    })
+  }
+
+  /** Pagination: Change page number */
+  getItems(itemsNumber: number) {
+    this.item = itemsNumber;
+    this.onSelect(1);
+  }
+
+  onSelect(pageNumber: number) {
+    this.selectedPage = pageNumber - 1;
+    this.getSimpleLogs();
+  }
+  reloadData() {
+    this.pageContent = this.getSimpleLogs();
+  }
 
 }

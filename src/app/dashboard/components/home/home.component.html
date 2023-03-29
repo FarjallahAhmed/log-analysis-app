@@ -76,12 +76,60 @@
       </div>
     </div>
   </div>&nbsp;&nbsp;
+  <div class="table-responsive-lg">
+    <div class="card-body text-center bg-altran rounded-top">
+      <h5 class="text-light"><strong>Logs Table</strong>
+        <button type="button" id="add-risk-btn" class="btn btn-primary btn-add-add" title="Afficher les risques"
+          data-toggle="modal" data-target="#addActionsModal"
+          style="float:right; color: #007EAF;">
+          <i class="fa fa-align-justify"></i>&nbsp;{{'Voir tout' }}</button></h5>
+    </div>
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="row-border hover">
+        <tr>
+          <th style="width: 7%;">Logger</th>
+          <th style="width: 7%;">LogLevel</th>
+          <th style="width: 10%;">LogMessage</th>
+          <th style="width: 7%;">Day</th>
+          <th style="width: 7%;">Year</th>
+          <th style="width: 7%;">Month</th>
+          <th style="width: 7%;">package</th>
+          <th style="width: 10%;">threadName</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of pageContent | paginate: { itemsPerPage: item, currentPage: p, totalItems: total }">
+          <td *ngIf="log.logger">{{log.logger}}</td>
+          <td *ngIf="log.logger">{{log.loglevel}}</td>
+          <td *ngIf="log.logger">{{log.logMessage}}</td>
+          <td *ngIf="log.logger">{{log.day}}</td>
+          <td *ngIf="log.logger">{{log.year}}</td>
+          <td *ngIf="log.logger">{{log.month}}</td>
+          <td *ngIf="log.logger">{{log.packagee}}</td>
+          <td *ngIf="log.logger">{{log.threadName}}</td>
+        </tr>
+      </tbody>
+
+    </table>
+
+    <!-- Pagination-->
+    <div class="clearfix">
+      <div class="hint-text">{{'Total' }}: <b>{{total}}</b> {{'éléments' }}</div>
+      <div class="pagination justify-content-end">
+        <nav class="Page navigation example">
+          <pagination-controls (pageChange)="p=$event" (click)="onSelect(p)" previousLabel="{{'Précédente'}}"
+            nextLabel="{{'Suivante'}}"></pagination-controls>
+        </nav>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div>
       &nbsp;&nbsp;
       <div class="card-card-4  z-depth-3">
         <div class="card-body text-center bg-altran rounded-top">
-          <h5 class="text-light"><strong>Logs Table</strong>
+          <h5 class="text-light"><strong>Exception Table</strong>
             <button type="button" id="add-risk-btn" class="btn btn-primary btn-add-add" title="Afficher les risques"
               data-toggle="modal" data-target="#addActionsModal"
               style="float:right; color: #007EAF;">
@@ -93,24 +141,39 @@
               <thead class="row-border hover">
                 <tr>
                   <th style="width: 7%;">Exception</th>
+                  <th style="width: 7%;">Details</th>
                 </tr>
+
+
+
               </thead>
-              <tbody *ngFor="let exception of ErrorlogsMessage ; let i = index">
+              <tbody *ngFor="let exception of ErrorlogsMessage | paginate: { itemsPerPage: itemException, currentPage: pException, totalItems: totalException } ; let i = index ">
+
                 <tr >
                   <td *ngIf="exception">{{exception}}</td>
-                </tr>
-                <tr>
+                  <td>
 
-                  <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
-                  <p-dialog header="StackTraceLog" [(visible)]="visible" [style]="{ width: '50vw', height: '300px' }">
-                      <p *ngFor="let stackTrace of StackTraceLog[i]">
-                          {{stackTrace}}
-                      </p>
-                  </p-dialog>
+                    <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+                    <p-dialog header="StackTraceLog" [(visible)]="visible" [style]="{ width: '50vw', height: '300px' }">
+                        <p *ngFor="let stackTrace of StackTraceLog[i]">
+                            {{stackTrace}}
+                        </p>
+                    </p-dialog>
+
+                  </td>
                 </tr>
               </tbody>
             </table>
-
+    <!-- Pagination-->
+    <div class="clearfix">
+      <div class="hint-text">{{'Total' }}: <b>{{totalException}}</b> {{'éléments' }}</div>
+      <div class="pagination justify-content-end">
+        <nav class="Page navigation example">
+          <pagination-controls (pageChange)="pException=$event" (click)="onSelect(pException)" previousLabel="{{'Précédente'}}"
+            nextLabel="{{'Suivante'}}"></pagination-controls>
+        </nav>
+      </div>
+    </div>
           </div>
         </div>
 

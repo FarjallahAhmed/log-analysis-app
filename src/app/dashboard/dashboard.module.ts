@@ -12,6 +12,7 @@ import { LayoutModule } from '../layout/layout.module';
 import { HomeComponent } from './components/home/home.component';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -31,7 +32,8 @@ import { ButtonModule } from 'primeng/button';
     LayoutModule,
     ChartModule,
     DialogModule,
-    ButtonModule
+    ButtonModule,
+    NgxPaginationModule
   ]
 })
 export class DashboardModule { }
