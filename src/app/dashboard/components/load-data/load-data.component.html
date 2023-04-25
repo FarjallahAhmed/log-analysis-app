@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card in-down">
+      <div class="card-header">
+        <a class="navbar-brand">
+
+          <span class="quiz-title text-warning">Load Data</span>
+        </a>
+      </div>
+      <select #sel class="form-select" aria-label="Default select example" (change)="onSelected(sel.value)">
+        <option selected >Method of Loading</option>
+        <option value="file" >File Path</option>
+        <option value="host">Host</option>
+        <option value="folder">Folder Path</option>
+      </select>
+    <div class="card-body" *ngIf="status">
+      <form [formGroup] = "loadDataForm" >
+        <div class="input-group form-group" *ngIf="choice == 'file'">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-light fa-file"></i></span>
+          </div>
+          <input type="text" id="filePath" class="form-control" placeholder="file Path"
+          formControlName="filePath"
+          >
+
+        </div>
+        <div *ngIf="choice == 'host'">
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-light fa-server"></i></span>
+          </div>
+          <input type="text" id="host" class="form-control" placeholder="Host"
+          formControlName="host"
+          >
+
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-light fa-server"></i></span>
+          </div>
+          <input type="text" id="port" class="form-control" placeholder="Port"
+          formControlName="port"
+          >
+
+        </div>
+      </div>
+        <div class="input-group form-group" *ngIf="choice == 'folder'">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-regular fa-folder"></i></span>
+          </div>
+          <input type="text" id="folderPath" class="form-control" placeholder="Folder Path"
+          formControlName="folderPath"
+          >
+
+        </div>
+
+        <div class="form-group">
+          <input type="submit"  id="submit"  value="Get Data"
+            class="btn float-right login_btn text-white"
+            (click)="onSubmitForm()">
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+</div>

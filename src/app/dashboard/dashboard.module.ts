@@ -13,6 +13,8 @@ import { HomeComponent } from './components/home/home.component';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LoadDataComponent } from './components/load-data/load-data.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -21,6 +23,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FilterComponent,
     SummaryComponent,
     HomeComponent,
+    LoadDataComponent
   ],
   exports:[
     LogsTableComponent,
@@ -33,7 +36,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ChartModule,
     DialogModule,
     ButtonModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ReactiveFormsModule
   ]
 })
 export class DashboardModule { }
