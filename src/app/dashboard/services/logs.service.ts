@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -14,10 +14,24 @@ export class LogsService {
 
   private baseUrl = "http://localhost:9200/default_log_index/_search";
 
+  private basesUrlLoadData = "http://localhost:8080/load-data";
+
   private baseUrlSpring = "http://localhost:8080/api/logs/exceptionlogs";
   private baseUrlSpring2 = "http://localhost:8080/api/logs/simplelogs";
 
   constructor(private http: HttpClient) {}
+
+  loadDataFromFile(pathFile: string, pattern:string, logstashFile:string){
+    console.log("service");
+    const params = new HttpParams()
+      .set('pathFile', pathFile)
+      .set('pattern', pattern)
+      .set('logstashFile', logstashFile);
+
+    return this.http.post(this.basesUrlLoadData,null,{params});
+  }
+
+
 
 
   getLogs(): Observable<Object> {
