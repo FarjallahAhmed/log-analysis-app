@@ -21,8 +21,10 @@ export class LogsTableComponent implements OnInit{
   totalInfo!: number;
   logsByTypeTotlal!: number[];
   logsLevel!: string[];
+  typeOfChart!: string;
 
   constructor(private logsService: LogsService){
+    this.typeOfChart = 'line';
   }
 
   ngOnInit(): void {

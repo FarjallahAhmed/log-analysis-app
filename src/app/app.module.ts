@@ -10,6 +10,7 @@ import { AuthentificationService } from './auth/services/authentification.servic
 import { AuthGuard } from './core/guards/auth.guard';
 import { httpInterceptBasic } from './core/intercepts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    NgChartsModule
   ],
   providers: [
     AuthentificationService,

@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LoadDataComponent } from './components/load-data/load-data.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -37,7 +38,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DialogModule,
     ButtonModule,
     NgxPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule
   ]
 })
 export class DashboardModule { }
