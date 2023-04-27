@@ -1,1 +1,21 @@
-<p>summary works!</p>
+<ng-container *ngIf="response">
+  <h1>Log Summary</h1>
+  <p>Total Logs: {{ response.totalLogs }}</p>
+  <p>Stack Trace Logs: {{ response.stackTraceLogs }}</p>
+  <p>Latest Date: {{ response.latestDate |date }}</p>
+  <p>Earliest Date: {{ response.earliestDate|date }}</p>
+  <p>Error Logs: {{ response.errorLogs }}</p>
+  <p>Top Loggers: {{ response.topLoggers }}</p>
+  <h2>Log Level Percentages:</h2>
+  <ul>
+    <li *ngFor="let percentage of response.logLevelPercentages |keyvalue">
+      {{ percentage.key }}: {{ percentage.value  }}%
+    </li>
+  </ul>
+  <h2>Error Message Percentages:</h2>
+  <ul>
+    <li *ngFor="let percentage of response.errorMessagePercentages |keyvalue">
+      {{ percentage.key }}: {{ percentage.value }}%
+    </li>
+  </ul>
+</ng-container>
