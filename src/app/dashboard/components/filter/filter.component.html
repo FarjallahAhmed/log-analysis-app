@@ -1,1 +1,10 @@
-<p>filter works!</p>
+<div *ngFor="let log of logs let i =index">
+<h1> {{i}} </h1>
+  <p> {{log.packagee}}  </p>
+  <p> {{log.logger}} </p>
+  <p> {{log.logmessage}} </p>
+  <p> {{log.uuid}} </p>
+  <p> {{log.loglevel}} </p>
+  <p> {{log.threadname}} </p>
+  <p> {{log.log_date}} </p>
+</div>
