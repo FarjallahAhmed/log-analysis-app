@@ -24,7 +24,6 @@ export class LogsTableComponent implements OnInit{
   typeOfChart!: string;
 
   constructor(private logsService: LogsService){
-    this.typeOfChart = 'line';
   }
 
   ngOnInit(): void {

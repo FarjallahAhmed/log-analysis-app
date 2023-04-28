@@ -5,6 +5,7 @@
   </div>
   <!-- Content-->
   <div class="content">
+
     <div class="row">
       <div class="col-md-4 col-xl-3 ">
         <div class="card bg-c-blue  card-box bg-red">
@@ -60,6 +61,24 @@
       </div>
 
     </div>
+    <div class="row">
+      <app-chart  [typeOfChart] = "'line'" ></app-chart>
+    </div>
+
+
+
+<!--
+      <div class="container text-center">
+        <div class="row justify-content-center" >
+          <div class="col">
+            <app-chart [typeOfChart]="'line'"></app-chart>
+          </div>
+          <div class="col">
+            <app-chart [typeOfChart]="'polar'"></app-chart>
+          </div>
+        </div>
+      </div>
+-->
 
     <div class="row">
       <div>

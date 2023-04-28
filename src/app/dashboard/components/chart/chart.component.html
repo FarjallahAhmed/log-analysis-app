@@ -1,4 +1,4 @@
-<div style="display: flex; flex-wrap: wrap">
+<!--  <div style="display: flex; flex-wrap: wrap">
   <div style="flex: 1; padding: 10px" *ngIf="typeOfChart == 'line'">
     <h2 class="chart-title">Logs Per Month</h2>
     <canvas
@@ -12,7 +12,7 @@
     >
     </canvas>
   </div>
-  <div style="flex: 1; padding: 10px" *ngIf="typeOfChart == 'line'">
+  <div style="flex: 1; padding: 10px" *ngIf="typeOfChart == 'polar'">
     <h2 class="chart-title">Top Message</h2>
     <canvas
       baseChart
@@ -21,5 +21,175 @@
       [type]="polarAreaChartType"
     >
     </canvas>
+  </div>
+</div>-->
+<div *ngIf="typeOfChart == 'line'">
+  <h2 class="chart-title">Logs Per Month</h2>
+  <canvas
+    baseChart
+    width="1050"
+    height="400"
+    [type]="'line'"
+    [data]="lineChartData"
+    [options]="lineChartOptions"
+    [legend]="lineChartLegend"
+  >
+  </canvas>
+</div>
+<div *ngIf="typeOfChart == 'polar'">
+  <h2 class="chart-title">Top Message</h2>
+  <canvas
+    baseChart
+    [data]="polarAreaChartData"
+    [legend]="polarAreaLegend"
+    [type]="polarAreaChartType"
+  >
+  </canvas>
+</div>
+
+<div *ngIf="typeOfChart == 'polarSummary'">
+  <h2 class="chart-title">Top Message</h2>
+  <canvas
+    baseChart
+    [data]="polarAreaChartDataSummary"
+    [legend]="polarAreaLegend"
+    [type]="polarAreaChartType"
+  >
+  </canvas>
+</div>
+
+<!--  <div style="display: flex; flex-wrap: wrap">
+  <div style="flex: 1; padding: 10px" *ngIf="typeOfChart == 'line'">
+    <h2 class="chart-title">Logs Per Month</h2>
+    <canvas
+      baseChart
+      width="500"
+      height="400"
+      [type]="'line'"
+      [data]="lineChartData"
+      [options]="lineChartOptions"
+      [legend]="lineChartLegend"
+    >
+    </canvas>
+  </div>
+  <div style="flex: 1; padding: 10px" *ngIf="typeOfChart == 'polar'">
+    <h2 class="chart-title">Top Message</h2>
+    <canvas
+      baseChart
+      [data]="polarAreaChartData"
+      [legend]="polarAreaLegend"
+      [type]="polarAreaChartType"
+    >
+    </canvas>
+  </div>
+</div>-->
+
+
+
+
+<!-- Title-->
+<div class="title">
+  <h3>{{'Tableau de bord'  }}</h3>
+</div>
+<!-- Content-->
+<div class="content">
+  <div class="row">
+
+    <div class="col-md-4 col-xl-3 ">
+      <h2 class="chart-title">Top Message</h2>
+      <canvas
+        baseChart
+        [data]="polarAreaChartDataSummary"
+        [legend]="polarAreaLegend"
+        [type]="polarAreaChartType"
+      >
+      </canvas>
+    </div>
+    <div class="col-md-4 col-xl-3 ">
+      <h2 class="chart-title">Logs Per Month</h2>
+      <canvas
+        baseChart
+        width="400"
+        height="400"
+        [type]="'line'"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend"
+      >
+      </canvas>
+    </div>
+  </div>
+  &nbsp;&nbsp;
+
+
+
+
+  <div class="row">
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Total Logs</h3>
+        </div>
+        <div class="card-body">
+          <h2>{{ response.totalLogs }}</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card log-summary-card">
+            <div class="card-header">
+              <h3>Log Summary</h3>
+            </div>
+            <div class="card-body">
+              <p><strong>Stack Trace Logs:</strong> <span>{{ response.stackTraceLogs }}</span></p>
+              <p><strong>Latest Date:</strong> <span>{{ response.latestDate | date }}</span></p>
+              <p><strong>Earliest Date:</strong> <span>{{ response.earliestDate | date }}</span></p>
+              <p><strong>Error Logs:</strong> <span>{{ response.errorLogs }}</span></p>
+              <p><strong>Top Loggers:</strong> <span>{{ response.topLoggers }}</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h3>Log Level Percentages</h3>
+            </div>
+            <div class="card-body">
+              <div *ngFor="let percentage of response.logLevelPercentages | keyvalue">
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar" [style.width.%]="percentage.value">
+                    {{ percentage.key }}: {{ percentage.value }}%
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h3>Error Message Percentages</h3>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>Error Message</th>
+                <th>Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let percentage of response.errorMessagePercentages | keyvalue">
+                <td>{{ percentage.key }}</td>
+                <td>{{ percentage.value }}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+
   </div>
 </div>
