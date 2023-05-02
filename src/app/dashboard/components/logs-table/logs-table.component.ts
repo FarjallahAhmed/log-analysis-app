@@ -10,66 +10,46 @@ import { LogsService } from '../../services/logs.service';
 })
 export class LogsTableComponent implements OnInit{
 
-  response!: any;
-  error!: any[];
-  responseErro!: any;
-  totalLog!: number;
-  logs!: any;
-  totalByType!: number;
-  totalError!: number;
-  totalWarn!: number;
-  totalInfo!: number;
-  logsByTypeTotlal!: number[];
-  logsLevel!: string[];
-  typeOfChart!: string;
+  // pagination
+    totalLogs!: number;
+    itemLogs = 5 ;
+    selectedPageLogs = 0;
+    pageContentLogs!: any;
+    pLogs: number = 1;
+    pageLogs!: any;
 
-  constructor(private logsService: LogsService){
+  constructor(private logsService: LogsService,private logService: LogsService){
   }
 
   ngOnInit(): void {
-    this.getAllLogs();
-    this.logsService.getUniqueFieldValues("loglevel").subscribe(data => {
-      this.response = data;
-      const len = this.response.aggregations.unique_values.buckets.length;
-      this.logsByTypeTotlal = [];
-      this.logsLevel = [];
-      for(let i = 0; i < len; i++) {
-        const bucket = this.response.aggregations.unique_values.buckets[i];
-        this.logsByTypeTotlal.push(bucket["doc_count"]);
-        this.logsLevel.push(bucket["key"]);
-        console.log(this.logsByTypeTotlal );
-        console.log(this.logsLevel);
-      }
+    this.pageLogs = [];
+    this.reloadData();
 
-    });
-    this.getTotalLogsByType("ERROR").subscribe(totalByType => {
-      this.totalError = totalByType
-    });
-    this.getTotalLogsByType("INFO").subscribe(totalByType => {
-      this.totalInfo = totalByType
-    });
-    this.getTotalLogsByType("WARN").subscribe(totalByType => {
-      this.totalWarn = totalByType
-    });
-  }
-  getAllLogs(){
-    this.logsService.getLogs().subscribe(data => {
-      this.response = data;
-      this.totalLog = this.response.hits.total.value;
-      this.logs = this.response.hits.hits;
-      console.log(this.logs);
-    });
   }
 
-  getTotalLogsByType(type: string): Observable<number>{
-    return this.logsService.getLogsByType(type).pipe(
-      map(data => {
-        this.response = data;
-        const totalByType = this.response.hits.total.value;
-        return totalByType;
-      })
-    );
+  getSimpleLogs(){
+    this.logService.getsimpleLogs().subscribe(data =>{
+      this.pageLogs = data;
+      this.totalLogs = this.pageLogs.totalElements;
+      this.pageContentLogs = this.pageLogs.content;
+    })
   }
 
+
+
+
+  /** Pagination: Change page number */
+  getItems(itemsNumber: number) {
+    this.itemLogs = itemsNumber;
+    this.onSelect(1);
+  }
+
+  onSelect(pageNumber: number) {
+    this.selectedPageLogs = pageNumber - 1;
+    this.getSimpleLogs();
+  }
+  reloadData() {
+    this.pageLogs = this.getSimpleLogs();
+  }
 
 }

@@ -1,127 +1,92 @@
-<!-- Title-->
-<div class="title">
-    <h3>Tableau de bord</h3>
-
-  </div>
-  <!-- Content-->
-  <div class="content">
-
-    <div class="row">
-      <div class="col-md-4 col-xl-3 ">
-        <div class="card bg-c-blue  card-box bg-red">
-          <div class=" inner">
-            <h5 class="m-b-20">Total Logs</h5>
-            <h2 class="text-left"><span>{{totalLog}}</span></h2>
-          </div>
-          <div class="icon">
-            <i class="fa fa-users"></i>
-          </div>
-          <a href="" data-toggle="modal" data-target="" class="card-box-footer" >View More <i
-              class="fa fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <div class="col-md-4 col-xl-3 ">
-        <div class="card bg-c-secondary  card-box bg-secondary">
-          <div class=" inner">
-            <h5 class="m-b-20">Totla Error </h5>
-            <h2 class="text-left"><span>{{ totalError}}</span></h2>
-          </div>
-          <div class="icon">
-            <i class="fa fa-building"></i>
-          </div>
-          <a href="" data-toggle="modal" data-target="" class="card-box-footer">View More <i
-              class="fa fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <div class="col-md-4 col-xl-3 ">
-        <div class="card bg-c-yellow  card-box bg-yellow">
-          <div class=" inner">
-            <h5 class="m-b-20">Total Warn</h5>
-            <h2 class="text-left"><span>{{ totalWarn}}</span></h2>
-          </div>
-          <div class="icon">
-            <i class="fa fa-balance-scale"></i>
-          </div>
-          <a href="" data-toggle="modal" data-target="" class="card-box-footer" >View More <i
-              class="fa fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <div class="col-md-4 col-xl-3 ">
-        <div class="card bg-c-green  card-box bg-green">
-          <div class=" inner">
-            <h5 class="m-b-20">Total Info</h5>
-            <h2 class="text-left"><span>{{ totalInfo}}</span></h2>
-          </div>
-          <div class="icon">
-            <i class="fa fa-cogs"></i>
-          </div>
-          <a href="" data-toggle="modal" data-target="" class="card-box-footer" >View More <i
-              class="fa fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
     </div>
-    <div class="row">
-      <app-chart  [typeOfChart] = "'line'" ></app-chart>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table
+          class="table table-bordered"
+          id="dataTable"
+          width="100%"
+          cellspacing="0"
+        >
+          <thead>
+            <th style="width: 7%">Logger</th>
+            <th style="width: 7%">LogLevel</th>
+            <th style="width: 10%">LogMessage</th>
+            <th style="width: 7%">Day</th>
+            <th style="width: 7%">Year</th>
+            <th style="width: 7%">Month</th>
+            <th style="width: 7%">package</th>
+            <th style="width: 10%">threadName</th>
+          </thead>
+          <tfoot>
+            <tr>
+              <th style="width: 7%">Logger</th>
+              <th style="width: 7%">LogLevel</th>
+              <th style="width: 10%">LogMessage</th>
+              <th style="width: 7%">Day</th>
+              <th style="width: 7%">Year</th>
+              <th style="width: 7%">Month</th>
+              <th style="width: 7%">package</th>
+              <th style="width: 10%">threadName</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr
+              *ngFor="
+                let log of pageContentLogs
+                  | paginate
+                    : {
+                        itemsPerPage: itemLogs,
+                        currentPage: pLogs,
+                        totalItems: totalLogs
+                      }
+              "
+            >
+              <td *ngIf="log.logger">{{ log.logger }}</td>
+              <td *ngIf="log.logger">{{ log.loglevel }}</td>
+              <td *ngIf="log.logger">{{ log.logMessage }}</td>
+              <td *ngIf="log.logger">{{ log.day }}</td>
+              <td *ngIf="log.logger">{{ log.year }}</td>
+              <td *ngIf="log.logger">{{ log.month }}</td>
+              <td *ngIf="log.logger">{{ log.packagee }}</td>
+              <td *ngIf="log.logger">{{ log.threadName }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-5">
+          <div
+            class="dataTables_info"
+            id="dataTable_info"
+            role="status"
+            aria-live="polite"
+          >
+            Showing {{pLogs}} of  <b>{{ totalLogs }}</b> {{ "éléments" }}
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-7">
+          <div
+            class="dataTables_paginate paging_simple_numbers"
+            id="dataTable_paginate"
+          >
+          <div class="pagination justify-content-end">
+            <nav class="Page navigation example">
+              <pagination-controls
+                (pageChange)="pLogs = $event"
+                (click)="onSelect(pLogs)"
+                previousLabel="{{ 'Précédente' }}"
+                nextLabel="{{ 'Suivante' }}"
+              ></pagination-controls>
+            </nav>
+          </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-
-<!--
-      <div class="container text-center">
-        <div class="row justify-content-center" >
-          <div class="col">
-            <app-chart [typeOfChart]="'line'"></app-chart>
-          </div>
-          <div class="col">
-            <app-chart [typeOfChart]="'polar'"></app-chart>
-          </div>
-        </div>
-      </div>
--->
-
-    <div class="row">
-      <div>
-        &nbsp;&nbsp;
-        <div class="card-card-4  z-depth-3">
-          <div class="card-body text-center bg-altran rounded-top">
-            <h5 class="text-light"><strong>Logs Table</strong>
-              <button type="button" id="add-risk-btn" class="btn btn-primary btn-add-add" title="Afficher les risques"
-                data-toggle="modal" data-target="#addActionsModal"
-                style="float:right; color: #007EAF;">
-                <i class="fa fa-align-justify"></i>&nbsp;{{'Voir tout' }}</button></h5>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive-lg">
-              <table class="table table-bordered table-striped table-hover">
-                <thead class="row-border hover">
-                  <tr>
-                    <th style="width: 7%;">Logger</th>
-                    <th style="width: 7%;">LogLevel</th>
-                    <th style="width: 10%;">LogMessage</th>
-                    <th style="width: 7%;">Day</th>
-                    <th style="width: 7%;">Year</th>
-                    <th style="width: 7%;">Month</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let log of logs">
-                    <td *ngIf="log._source.logger">{{log._source.logger}}</td>
-                    <td *ngIf="log._source.logger">{{log._source.loglevel}}</td>
-                    <td *ngIf="log._source.logger">{{log._source.logmessage}}</td>
-                    <td *ngIf="log._source.logger">{{log._source.day}}</td>
-                    <td *ngIf="log._source.logger">{{log._source.year}}</td>
-                    <td *ngIf="log._source.logger">{{log._source.month}}</td>
-                  </tr>
-                </tbody>
-              </table>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-    </div>&nbsp;&nbsp;
-
   </div>
+</div>

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartOptions, ChartType } from "chart.js";
 import { ChartService } from '../../services/chart.service';
 import { SummaryService } from '../../services/summary.service';
+import { LogsService } from '../../services/logs.service';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -11,14 +12,22 @@ export class ChartComponent implements OnInit {
 
   logsPerMonth: Map<string, number> = new Map();
   topMessage: Map<string, number> = new Map();
-
+  logs!: any;
   summary: Map<string, number> = new Map();
-  lineChartData!: ChartConfiguration<'line'>['data'];
-  polarAreaChartData!: ChartData<'polarArea'>;
 
+
+  lineChartData!: ChartConfiguration<'line'>['data'];
+  barChartData!: ChartData<'bar'>
+  polarAreaChartData!: ChartData<'polarArea'>;
   polarAreaChartDataSummary!: ChartData<'polarArea'>;
+
+  pieChartData!: ChartData<'pie'>;
+  public pieChartType: ChartType = 'pie';
+
   public polarAreaLegend = false;
   public polarAreaChartType: ChartType = 'polarArea';
+  public polarAreaChartLabels!: string[];
+
   public lineChartOptions: ChartOptions<'line'> = {
     responsive: false
   };
@@ -28,10 +37,25 @@ export class ChartComponent implements OnInit {
 
   @Input() typeOfChart!: string;
 
-  constructor(private chartService: ChartService,private summaryService: SummaryService){}
+  constructor(private chartService: ChartService,
+              private summaryService: SummaryService,
+              private logsService: LogsService){}
 
   ngOnInit(): void {
-
+   this.chartService.getTopMessage().subscribe(
+      data =>{
+        this.topMessage = data;
+        this.barChartData = this.getBarChartData(Array.from(this.topMessage.keys()),
+                                                    Array.from(this.topMessage.values()));
+      }
+    );
+    this.chartService.getTopMessage().subscribe(
+      data =>{
+        this.topMessage = data;
+        this.pieChartData = this.getPieChartData(Array.from(this.topMessage.keys()),
+                                                    Array.from(this.topMessage.values()));
+      }
+    );
     this.chartService.getLogsPerMonth().subscribe(
       data => {
         this.logsPerMonth = data;
@@ -42,7 +66,8 @@ export class ChartComponent implements OnInit {
     this.chartService.getTopMessage().subscribe(
       data => {
         this.logsPerMonth = data;
-        this.polarAreaChartData = this.getPolarChartData(Array.from(this.logsPerMonth.keys()),
+        this.polarAreaChartLabels = Array.from(this.logsPerMonth.keys());
+        this.polarAreaChartData = this.getPolarChartData(this.polarAreaChartLabels,
                                                     Array.from(this.logsPerMonth.values()));
       });
 
@@ -82,6 +107,42 @@ export class ChartComponent implements OnInit {
     };
   }
 
+  getBarChartData(labels: string[], data: number[]): ChartData<'bar'> {
+    return {
+      labels: labels,
+      datasets: [ {
+        data: data
+      } ]
+    };
+  }
+
+  getPieChartData(labels: string[], data: number[]): ChartData<'pie'> {
+    return {
+      labels: labels,
+      datasets: [ {
+        data: data
+      } ]
+    };
+  }
+
+
+  getAllLogs(){
+    this.logsService.getLogs().subscribe(data => {
+      this.response = data;
+      this.logs = this.response.hits.hits;
+      console.log(this.logs);
+    });
+  }
+
+
+  public lineChartOptionsPolar: ChartConfiguration['options'] = {
+
+    plugins: {
+      legend: {
+          position: 'right' ,
+    }
+    }
+  };
 
 
 
