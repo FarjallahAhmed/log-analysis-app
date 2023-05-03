@@ -36,6 +36,34 @@ export class SummaryService {
       })
     );
   }
+
+
+
+  generateReportPDF(summary: any): any {
+
+    const requestBody = summary;
+
+    return this.http.post<any>(`${this.baseUrl}`+'report',requestBody);
+
+  }
+
+  getReportData(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}`+'summary').pipe(
+      map(response => {
+        const logData = {
+          totalLogs: response.totalLogs,
+          stackTraceLogs: response.stackTraceLogs,
+          latestDate: response.latestDate,
+          earliestDate: response.earliestDate,
+          errorLogs: response.errorLogs,
+          topLoggers: response.topLoggers,
+          logLevelPercentages: response.logLevelPercentages,
+          errorMessagePercentages: response.errorMessagePercentages
+        };
+        return logData;
+      })
+    );
+  }
 }
 
 

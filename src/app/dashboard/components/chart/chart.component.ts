@@ -70,7 +70,6 @@ export class ChartComponent implements OnInit {
         this.polarAreaChartData = this.getPolarChartData(this.polarAreaChartLabels,
                                                     Array.from(this.logsPerMonth.values()));
       });
-
       this.summaryService.getSummaryOfLogs().subscribe(data => {
         this.response = data
         this.summary = data.errorMessagePercentages;
@@ -134,6 +133,13 @@ export class ChartComponent implements OnInit {
     });
   }
 
+  onGenerateReport(){
+    this.summaryService.getReportData().subscribe(
+      data => {
+        this.summaryService.generateReportPDF(data).subscribe();
+      }
+    )
+  }
 
   public lineChartOptionsPolar: ChartConfiguration['options'] = {
 
