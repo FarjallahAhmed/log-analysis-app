@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ChartService } from '../../services/chart.service';
@@ -42,12 +42,14 @@ export class HomeComponent implements OnInit{
   selectedPageException = 0;
   pageContentException!: any;
   pException: number = 1;
+  index!: string;
 
 
   constructor(private chatService : ChartService,private logService: LogsService){}
 
   ngOnInit(): void {
     this.pageContent = [];
+    this.index = "default_log_index";
     this.reloadData();
     this.getExceptions().subscribe(data=>{
 
@@ -167,7 +169,7 @@ export class HomeComponent implements OnInit{
 
 
   getExceptions(): Observable<Object>{
-    return this.logService.getExceptionLogs().pipe(
+    return this.logService.getExceptionLogs(this.index).pipe(
       map(data => {
         this.response = data;
         const exception = this.response.content;
@@ -180,7 +182,7 @@ export class HomeComponent implements OnInit{
 
 
   getSimpleLogs(){
-    this.logService.getsimpleLogs().subscribe(data =>{
+    this.logService.getsimpleLogs(this.index).subscribe(data =>{
       this.pageClient = data;
       this.total = this.pageClient.totalElements;
       this.pageContent = this.pageClient.content;
@@ -200,5 +202,8 @@ export class HomeComponent implements OnInit{
   reloadData() {
     this.pageContent = this.getSimpleLogs();
   }
-
+selectValue(value: string) {
+    this.index = value;
+    console.log(this.index);
+  }
 }

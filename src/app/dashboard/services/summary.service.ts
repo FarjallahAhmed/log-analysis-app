@@ -12,8 +12,8 @@ export class SummaryService {
   constructor(private http: HttpClient) { }
 
 
-  getSummaryOfLogs(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}`+'summary').pipe(
+  getSummaryOfLogs(index: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}`+'summary/'+index).pipe(
       map(response => {
         const logData = {
           totalLogs: response.totalLogs,
@@ -47,8 +47,8 @@ export class SummaryService {
 
   }
 
-  getReportData(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}`+'summary').pipe(
+  getReportData(index: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}`+'summary/'+index).pipe(
       map(response => {
         const logData = {
           totalLogs: response.totalLogs,

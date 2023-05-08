@@ -76,13 +76,13 @@ export class LogsService {
     return this.http.post(`${this.baseUrl}`,requestBody);
   }
 
-  getExceptionLogs(): Observable<Object>{
-    return this.http.get(this.baseUrlSpring);
+  getExceptionLogs(index:string): Observable<Object>{
+    return this.http.get(this.baseUrlSpring+"/"+index);
   }
 
 
-  getsimpleLogs(): Observable<Object>{
-    return this.http.get(this.baseUrlSpring2);
+  getsimpleLogs(index: string): Observable<Object>{
+    return this.http.get(this.baseUrlSpring2+"/"+index);
   }
 
 

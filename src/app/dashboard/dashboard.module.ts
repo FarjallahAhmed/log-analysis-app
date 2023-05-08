@@ -16,6 +16,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { LoadDataComponent } from './components/load-data/load-data.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
+import { MetricsComponent } from './components/metrics/metrics.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -24,11 +25,12 @@ import { NgChartsModule } from 'ng2-charts';
     FilterComponent,
     SummaryComponent,
     HomeComponent,
-    LoadDataComponent
+    LoadDataComponent,
+    MetricsComponent
   ],
   exports:[
     LogsTableComponent,
-    ChartComponent
+    ChartComponent,
   ],
   imports: [
     CommonModule,

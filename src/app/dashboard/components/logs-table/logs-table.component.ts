@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,Input,OnInit,OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LogsService } from '../../services/logs.service';
@@ -17,6 +17,7 @@ export class LogsTableComponent implements OnInit{
     pageContentLogs!: any;
     pLogs: number = 1;
     pageLogs!: any;
+    @Input() index!: string;
 
   constructor(private logsService: LogsService,private logService: LogsService){
   }
@@ -28,7 +29,7 @@ export class LogsTableComponent implements OnInit{
   }
 
   getSimpleLogs(){
-    this.logService.getsimpleLogs().subscribe(data =>{
+    this.logService.getsimpleLogs(this.index).subscribe(data =>{
       this.pageLogs = data;
       this.totalLogs = this.pageLogs.totalElements;
       this.pageContentLogs = this.pageLogs.content;
@@ -51,5 +52,13 @@ export class LogsTableComponent implements OnInit{
   reloadData() {
     this.pageLogs = this.getSimpleLogs();
   }
+
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['index'] && !changes['index'].firstChange) {
+      this.reloadData();
+    }
+  }
+
 
 }

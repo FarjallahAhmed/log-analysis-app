@@ -52,8 +52,8 @@ export class ChartService {
   }
 
 
-  getLogsPerMonth(): Observable<Map<string, number>> {
-    return this.http.get<{ [key: string]: number }>(this.baseUrlSpring+'logs-per-month').pipe(
+  getLogsPerMonth(index: string): Observable<Map<string, number>> {
+    return this.http.get<{ [key: string]: number }>(this.baseUrlSpring+'logs-per-month/'+index).pipe(
       map(response => {
         const logsPerMonth = new Map<string, number>();
         Object.keys(response).forEach(key => {
@@ -64,8 +64,8 @@ export class ChartService {
     );
   }
 
-  getTopMessage(): Observable<Map<string, number>>{
-    return this.http.get<{ [key: string]: number }>(this.baseUrlSpring+'logs-top-message').pipe(
+  getTopMessage(index: string): Observable<Map<string, number>>{
+    return this.http.get<{ [key: string]: number }>(this.baseUrlSpring+'logs-top-message/'+index).pipe(
       map(response => {
         const topMessage = new Map<string, number>();
         Object.keys(response).forEach(key => {

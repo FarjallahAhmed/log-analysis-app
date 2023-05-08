@@ -16,7 +16,7 @@ import { NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
-    AuthentificationComponent,
+    AuthentificationComponent
   ],
   imports: [
     BrowserModule,

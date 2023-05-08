@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { LogsTableComponent } from './components/logs-table/logs-table.component';
 import { LoadDataComponent } from './components/load-data/load-data.component';
+import { MetricsComponent } from './components/metrics/metrics.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
     {path: 'logs-table', component: LogsTableComponent },
     {path: 'chart', component: ChartComponent},
     {path: 'home', component: HomeComponent },
-    {path: 'load-data', component: LoadDataComponent}
+    {path: 'load-data', component: LoadDataComponent},
+    {path: 'metrics',component:MetricsComponent}
   ]
  },
 ];

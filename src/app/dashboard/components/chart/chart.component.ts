@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartOptions, ChartType } from "chart.js";
 import { ChartService } from '../../services/chart.service';
 import { SummaryService } from '../../services/summary.service';
 import { LogsService } from '../../services/logs.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -14,7 +16,6 @@ export class ChartComponent implements OnInit {
   topMessage: Map<string, number> = new Map();
   logs!: any;
   summary: Map<string, number> = new Map();
-
 
   lineChartData!: ChartConfiguration<'line'>['data'];
   barChartData!: ChartData<'bar'>
@@ -36,41 +37,46 @@ export class ChartComponent implements OnInit {
 
 
   @Input() typeOfChart!: string;
+  @Input() index!: string
+
+  @Input() line!: boolean;
+  @Input() pie!: boolean;
+  @Input() polar!: boolean;
 
   constructor(private chartService: ChartService,
               private summaryService: SummaryService,
               private logsService: LogsService){}
 
   ngOnInit(): void {
-   this.chartService.getTopMessage().subscribe(
+    this.chartService.getTopMessage(this.index).subscribe(
       data =>{
         this.topMessage = data;
         this.barChartData = this.getBarChartData(Array.from(this.topMessage.keys()),
                                                     Array.from(this.topMessage.values()));
       }
     );
-    this.chartService.getTopMessage().subscribe(
+    this.chartService.getTopMessage(this.index).subscribe(
       data =>{
         this.topMessage = data;
         this.pieChartData = this.getPieChartData(Array.from(this.topMessage.keys()),
                                                     Array.from(this.topMessage.values()));
       }
     );
-    this.chartService.getLogsPerMonth().subscribe(
+    this.chartService.getLogsPerMonth(this.index).subscribe(
       data => {
         this.logsPerMonth = data;
         this.lineChartData = this.getLineChartData(Array.from(this.logsPerMonth.keys()),
                                                     Array.from(this.logsPerMonth.values()));
       });
 
-    this.chartService.getTopMessage().subscribe(
+    this.chartService.getTopMessage(this.index).subscribe(
       data => {
         this.logsPerMonth = data;
         this.polarAreaChartLabels = Array.from(this.logsPerMonth.keys());
         this.polarAreaChartData = this.getPolarChartData(this.polarAreaChartLabels,
                                                     Array.from(this.logsPerMonth.values()));
       });
-      this.summaryService.getSummaryOfLogs().subscribe(data => {
+      this.summaryService.getSummaryOfLogs(this.index).subscribe(data => {
         this.response = data
         this.summary = data.errorMessagePercentages;
         this.polarAreaChartDataSummary = this.getPolarChartData(Array.from(this.summary.keys()),
@@ -134,7 +140,7 @@ export class ChartComponent implements OnInit {
   }
 
   onGenerateReport(){
-    this.summaryService.getReportData().subscribe(
+    this.summaryService.getReportData(this.index).subscribe(
       data => {
         this.summaryService.generateReportPDF(data).subscribe();
       }
@@ -150,6 +156,49 @@ export class ChartComponent implements OnInit {
     }
   };
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['index'] && !changes['index'].firstChange) {
+      this.reloadData();
+    }
+  }
+
+  reloadData() {
+    this.chartService.getTopMessage(this.index).subscribe(
+      data =>{
+        this.topMessage = data;
+        this.barChartData = this.getBarChartData(Array.from(this.topMessage.keys()),
+                                                    Array.from(this.topMessage.values()));
+      }
+    );
+    this.chartService.getTopMessage(this.index).subscribe(
+      data =>{
+        this.topMessage = data;
+        this.pieChartData = this.getPieChartData(Array.from(this.topMessage.keys()),
+                                                    Array.from(this.topMessage.values()));
+      }
+    );
+    this.chartService.getLogsPerMonth(this.index).subscribe(
+      data => {
+        this.logsPerMonth = data;
+        this.lineChartData = this.getLineChartData(Array.from(this.logsPerMonth.keys()),
+                                                    Array.from(this.logsPerMonth.values()));
+      });
+
+    this.chartService.getTopMessage(this.index).subscribe(
+      data => {
+        this.logsPerMonth = data;
+        this.polarAreaChartLabels = Array.from(this.logsPerMonth.keys());
+        this.polarAreaChartData = this.getPolarChartData(this.polarAreaChartLabels,
+                                                    Array.from(this.logsPerMonth.values()));
+      });
+      this.summaryService.getSummaryOfLogs(this.index).subscribe(data => {
+        this.response = data
+        this.summary = data.errorMessagePercentages;
+        this.polarAreaChartDataSummary = this.getPolarChartData(Array.from(this.summary.keys()),
+                                                    Array.from(this.summary.values()));
+
+      });
+  }
 
 
 }
