@@ -1,5 +1,4 @@
-
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="tableData">
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -7,21 +6,18 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table
-          class="table table-bordered"
-          id="dataTable"
-          width="100%"
-          cellspacing="0"
-        >
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
-            <th style="width: 7%">Logger</th>
-            <th style="width: 7%">LogLevel</th>
-            <th style="width: 10%">LogMessage</th>
-            <th style="width: 7%">Day</th>
-            <th style="width: 7%">Year</th>
-            <th style="width: 7%">Month</th>
-            <th style="width: 7%">package</th>
-            <th style="width: 10%">threadName</th>
+            <tr>
+              <th style="width: 7%">Logger</th>
+              <th style="width: 7%">LogLevel</th>
+              <th style="width: 10%">LogMessage</th>
+              <th style="width: 7%">Day</th>
+              <th style="width: 7%">Year</th>
+              <th style="width: 7%">Month</th>
+              <th style="width: 7%">Package</th>
+              <th style="width: 10%">ThreadName</th>
+            </tr>
           </thead>
           <tfoot>
             <tr>
@@ -31,63 +27,64 @@
               <th style="width: 7%">Day</th>
               <th style="width: 7%">Year</th>
               <th style="width: 7%">Month</th>
-              <th style="width: 7%">package</th>
-              <th style="width: 10%">threadName</th>
+              <th style="width: 7%">Package</th>
+              <th style="width: 10%">ThreadName</th>
             </tr>
           </tfoot>
           <tbody>
-            <tr
-              *ngFor="
-                let log of pageContentLogs
-                  | paginate
-                    : {
-                        itemsPerPage: itemLogs,
-                        currentPage: pLogs,
-                        totalItems: totalLogs
-                      }
-              "
-            >
-              <td *ngIf="log.logger">{{ log.logger }}</td>
-              <td *ngIf="log.logger">{{ log.loglevel }}</td>
-              <td *ngIf="log.logger">{{ log.logMessage }}</td>
-              <td *ngIf="log.logger">{{ log.day }}</td>
-              <td *ngIf="log.logger">{{ log.year }}</td>
-              <td *ngIf="log.logger">{{ log.month }}</td>
-              <td *ngIf="log.logger">{{ log.packagee }}</td>
-              <td *ngIf="log.logger">{{ log.threadName }}</td>
+            <tr *ngFor="let log of tableData ">
+              <td>{{ log.logger }}</td>
+              <td>{{ log.loglevel }}</td>
+              <td>{{ log.logMessage }}</td>
+              <td>{{ log.day }}</td>
+              <td>{{ log.year }}</td>
+              <td>{{ log.month }}</td>
+              <td>{{ log.packagee }}</td>
+              <td>{{ log.threadName }}</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="row">
-        <div class="col-sm-12 col-md-5">
-          <div
-            class="dataTables_info"
-            id="dataTable_info"
-            role="status"
-            aria-live="polite"
-          >
-            Showing {{pLogs}} of  <b>{{ totalLogs }}</b> {{ "éléments" }}
-          </div>
-        </div>
-        <div class="col-sm-12 col-md-7">
-          <div
-            class="dataTables_paginate paging_simple_numbers"
-            id="dataTable_paginate"
-          >
-          <div class="pagination justify-content-end">
-            <nav class="Page navigation example">
-              <pagination-controls
-                (pageChange)="pLogs = $event"
-                (click)="onSelect(pLogs)"
-                previousLabel="{{ 'Précédente' }}"
-                nextLabel="{{ 'Suivante' }}"
-              ></pagination-controls>
-            </nav>
-          </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
+
+<div class="container-fluid" *ngIf="ErrorlogsMessage">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Exception</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+          <table class="table table-bordered table-striped table-hover">
+            <thead class="row-border hover">
+              <tr>
+                <th style="width: 7%;">Exception</th>
+                <th style="width: 7%;">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let exception of ErrorlogsMessage">
+                <td *ngIf="exception">{{ exception.errorMessage }}</td>
+                <td>
+                  <p-button (click)="exception.showStackTrace = true" icon="pi pi-external-link" label="Show"></p-button>
+                  <p-dialog header="StackTraceLog" [(visible)]="exception.showStackTrace" [style]="{ width: '50vw', height: '300px' }">
+                    <ul *ngFor="let stackTrace of exception.stackTrace; let i = index">
+                      <li>{{ i + 1 }} - {{ stackTrace }}</li>
+                    </ul>
+                  </p-dialog>
+                </td>
+              </tr>
+            </tbody>
+
+
+          </table>
+
+
+        </div>
+      </div>
+
+    </div>
+</div>
+
+

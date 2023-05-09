@@ -14,7 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LoadDataComponent } from './components/load-data/load-data.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 import { MetricsComponent } from './components/metrics/metrics.component';
 @NgModule({
@@ -41,7 +41,8 @@ import { MetricsComponent } from './components/metrics/metrics.component';
     ButtonModule,
     NgxPaginationModule,
     ReactiveFormsModule,
-    NgChartsModule
+    NgChartsModule,
+    FormsModule
   ]
 })
 export class DashboardModule { }

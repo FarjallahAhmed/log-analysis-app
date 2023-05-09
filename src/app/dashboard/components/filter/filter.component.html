@@ -1,10 +1,309 @@
-<div *ngFor="let log of logs let i =index">
-<h1> {{i}} </h1>
-  <p> {{log.packagee}}  </p>
-  <p> {{log.logger}} </p>
-  <p> {{log.logmessage}} </p>
-  <p> {{log.uuid}} </p>
-  <p> {{log.loglevel}} </p>
-  <p> {{log.threadname}} </p>
-  <p> {{log.log_date}} </p>
+
+<div class="content">
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Filtering </h1>
+            <div class="dropdown mb-4">
+              <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Choose index {{index}}
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" (click)="selectValue('default_log_index')">Default</a></li>
+                <li><a class="dropdown-item" (click)="selectValue('persistence_log_index')">Persistence</a></li>
+                <li><a class="dropdown-item" (click)="selectValue('devices_log_index')">Devices</a></li>
+              </ul>
+            </div>
+        </div>
+            <!-- Content Row -->
+            <div class="row">
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Total Logs</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">TTTTT</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Latest Logs</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">TTTTT</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Earliest Log
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">TTTTTT</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Requests Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-danger shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                        Exception</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">TETT</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Row -->
+
+            <div class="row">
+
+                <!-- Area Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Filter By Date Range</h6>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label for="startDate">Start Date:</label>
+                            <input type="date" id="startDate" [(ngModel)]="startDate" pattern="\d{4}-\d{2}-\d{2}">
+                          </div>
+                          <div class="form-group">
+                            <label for="endDate">End Date:</label>
+                            <input type="date" id="endDate" [(ngModel)]="endDate" pattern="\d{4}-\d{2}-\d{2}">
+                          </div>
+                          <button class="btn btn-sm btn-primary" (click)="getLogsByDateRange()">Filter</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Filter By Log Message</h6>
+
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label for="logmessage">Log Message:</label>
+                            <input type="text" id="logmessage" [(ngModel)]="logmessage" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                          </div>
+                          <button class="btn btn-sm btn-primary" (click)="filterLogByMessage()">Filter <i class="fas fa-search fa-sm"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-5">
+                  <div class="card shadow mb-4">
+                      <!-- Card Header - Dropdown -->
+                      <div
+                          class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                          <h6 class="m-0 font-weight-bold text-primary">Filter By Log Level</h6>
+
+                      </div>
+                      <!-- Card Body -->
+                      <div class="card-body">
+                        <div class="form-group">
+                          <label for="loglevel">Log Level:</label>
+                          <input type="text" id="loglevel" [(ngModel)]="loglevel" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                        </div>
+                        <button class="btn btn-sm btn-primary" (click)="filterLogLevel()">Filter <i class="fas fa-search fa-sm"></i></button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+            <!-- Content Row -->
+            <div class="row">
+
+                <!-- Content Column -->
+                <div class="col-lg-6 mb-4">
+
+                    <!-- Project Card Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Filter By Exception</h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label for="errorMessage">Error Message:</label>
+                            <input type="text" id="errorMessage" [(ngModel)]="errorMessage" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                          </div>
+                          <button class="btn btn-sm btn-primary" (click)="filterErrorException()">Filter <i class="fas fa-search fa-sm"></i></button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- Content Column -->
+                <div class="col-lg-6 mb-4">
+
+                  <!-- Project Card Example -->
+                  <div class="card shadow mb-4">
+                      <div class="card-header py-3">
+                          <h6 class="m-0 font-weight-bold text-primary">Top Message</h6>
+                      </div>
+                      <div class="card-body" >
+
+
+                      </div>
+                  </div>
+
+              </div>
+              <app-logs-table [tableData]="dataList ? dataList : response"
+                              [ErrorlogsMessage]="exceptionList"
+                              ></app-logs-table>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+  </div>
+  </div>
+
+<!--
+
+<div>
+  <h1>Filter by Date Range</h1>
+  <div>
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" [(ngModel)]="startDate" pattern="\d{4}-\d{2}-\d{2}">
+  </div>
+  <div>
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" [(ngModel)]="endDate" pattern="\d{4}-\d{2}-\d{2}">
+  </div>
+  <div>
+    <label for="index">Index:</label>
+    <input type="text" id="index" [(ngModel)]="index">
+  </div>
+  <button (click)="getLogsByDateRange()">Filter</button>
+  <div *ngIf="response">
+    <h2>Response</h2>
+    <pre>{{ response | json }}</pre>
+  </div>
 </div>
+
+
+
+<div>
+  <h1>Filter by Log Message</h1>
+  <div>
+    <label for="logmessage">Log Message:</label>
+    <input type="text" id="logmessage" [(ngModel)]="logmessage">
+  </div>
+  <div>
+    <label for="index">Index:</label>
+    <input type="text" id="index" [(ngModel)]="index">
+  </div>
+  <button (click)="filterLogByMessage()">Filter</button>
+  <div *ngIf="dataList">
+    <h2>Data List</h2>
+    <ul>
+      <li *ngFor="let data of dataList">
+        {{ data | json }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<div>
+  <h1>Filter by Log Level</h1>
+  <div>
+    <label for="loglevel">Log Level:</label>
+    <input type="text" id="loglevel" [(ngModel)]="loglevel">
+  </div>
+  <div>
+    <label for="index">Index:</label>
+    <input type="text" id="index" [(ngModel)]="index">
+  </div>
+  <button (click)="filterLogLevel()">Filter</button>
+  <div *ngIf="dataList">
+    <h2>Data List</h2>
+    <ul>
+      <li *ngFor="let data of dataList">
+        {{ data | json }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div>
+  <h1>Filter Exception</h1>
+  <div>
+    <label for="errorMessage">Error Message:</label>
+    <input type="text" id="errorMessage" [(ngModel)]="errorMessage">
+  </div>
+  <div>
+    <label for="index">Index:</label>
+    <input type="text" id="index" [(ngModel)]="index">
+  </div>
+  <button (click)="filterErrorException()">Filter</button>
+  <div *ngIf="exceptionList">
+    <h2>Exception List</h2>
+    <ul>
+      <li *ngFor="let exception of exceptionList">
+        {{ exception | json }}
+      </li>
+    </ul>
+  </div>
+</div>
+-->
+

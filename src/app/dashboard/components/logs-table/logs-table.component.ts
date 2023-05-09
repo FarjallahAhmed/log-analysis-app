@@ -18,6 +18,10 @@ export class LogsTableComponent implements OnInit{
     pLogs: number = 1;
     pageLogs!: any;
     @Input() index!: string;
+    @Input() tableData!: any[];
+    @Input() ErrorlogsMessage!: any[];
+    @Input() StackTraceLog!: any[];
+    visible!: boolean;
 
   constructor(private logsService: LogsService,private logService: LogsService){
   }
@@ -36,7 +40,9 @@ export class LogsTableComponent implements OnInit{
     })
   }
 
-
+  showDialog() {
+    this.visible = true;
+  }
 
 
   /** Pagination: Change page number */

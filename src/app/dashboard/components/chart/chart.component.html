@@ -1,36 +1,3 @@
-<!--  <div style="display: flex; flex-wrap: wrap">
-  <div style="flex: 1; padding: 10px" *ngIf="typeOfChart == 'line'">
-    <h2 class="chart-title">Logs Per Month</h2>
-    <canvas
-      baseChart
-      width="500"
-      height="400"
-      [type]="'line'"
-      [data]="lineChartData"
-      [options]="lineChartOptions"
-      [legend]="lineChartLegend"
-    >
-    </canvas>
-  </div>
-  <div style="flex: 1; padding: 10px" *ngIf="typeOfChart == 'polar'">
-    <h2 class="chart-title">Top Message</h2>
-    <canvas
-      baseChart
-      [data]="polarAreaChartData"
-      [legend]="polarAreaLegend"
-      [type]="polarAreaChartType"
-    >
-    </canvas>
-  </div>
-<div style="flex: 1; padding: 10px" *ngIf="typeOfChart == 'polar'">
-  <canvas baseChart class="chart"
-  [data]="barChartData"
-  [options]="barChartOptions"
-  [type]="barChartType">
-</canvas>
-</div>
-</div>-->
-
 <div *ngIf="line">
   <canvas
       baseChart

@@ -6,19 +6,20 @@ import { HomeComponent } from './components/home/home.component';
 import { LogsTableComponent } from './components/logs-table/logs-table.component';
 import { LoadDataComponent } from './components/load-data/load-data.component';
 import { MetricsComponent } from './components/metrics/metrics.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 
 const routes: Routes = [
   { path: '',
   component: DashboardComponent,
   children : [
-    {path: 'logs-table', component: LogsTableComponent },
+    {path: 'filter', component: FilterComponent },
     {path: 'chart', component: ChartComponent},
     {path: 'home', component: HomeComponent },
     {path: 'load-data', component: LoadDataComponent},
     {path: 'metrics',component:MetricsComponent}
-  ]
- },
+    ]
+  },
 ];
 
 @NgModule({
