@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { concatMap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -15,7 +15,7 @@ export class LogsService {
   private baseUrl = "http://localhost:9200/default_log_index/_search";
 
   private basesUrlLoadData = "http://localhost:8080/load-data";
-
+  private baseUrlStartLogstash = "http://localhost:8080/start-logstash";
   private baseUrlSpring = "http://localhost:8080/api/logs/exceptionlogs";
   private baseUrlSpring2 = "http://localhost:8080/api/logs/simplelogs";
 
@@ -31,8 +31,23 @@ export class LogsService {
     return this.http.post(this.basesUrlLoadData,null,{params});
   }
 
-
-
+  startLogstash(pathFile: string, pattern:string, logstashFile:string) {
+    this.loadDataFromFile(pathFile, pattern, logstashFile)
+      .pipe(
+        concatMap(() => {
+          console.log("Data loaded successfully.");
+          return this.http.post(this.baseUrlStartLogstash, {});
+        })
+      )
+      .subscribe(
+        () => {
+          console.log("Logstash started successfully.");
+        },
+        (error) => {
+          console.error("Error occurred:", error);
+        }
+      );
+  }
 
   getLogs(): Observable<Object> {
 

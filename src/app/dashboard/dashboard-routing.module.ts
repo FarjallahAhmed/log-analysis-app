@@ -7,6 +7,7 @@ import { LogsTableComponent } from './components/logs-table/logs-table.component
 import { LoadDataComponent } from './components/load-data/load-data.component';
 import { MetricsComponent } from './components/metrics/metrics.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { AlertingComponent } from './components/alerting/alerting.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
     {path: 'chart', component: ChartComponent},
     {path: 'home', component: HomeComponent },
     {path: 'load-data', component: LoadDataComponent},
-    {path: 'metrics',component:MetricsComponent}
+    {path: 'alert',component:AlertingComponent}
     ]
   },
 ];

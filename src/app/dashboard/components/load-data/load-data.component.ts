@@ -50,9 +50,10 @@ export class LoadDataComponent implements OnInit{
     console.log("test");
 
     if(this.filePath !== null){
-      this.logService.loadDataFromFile(this.filePath,this.pattern,this.filePath).subscribe(() =>{
+      /*this.logService.loadDataFromFile(this.filePath,this.pattern,this.filePath).subscribe(() =>{
         console.log("Data loaded successfully");
-      });
+      });*/
+      this.logService.startLogstash(this.filePath,this.pattern,this.filePath);
       console.log(this.filePath);
       console.log(this.pattern);
     }

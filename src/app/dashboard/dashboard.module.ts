@@ -17,6 +17,7 @@ import { LoadDataComponent } from './components/load-data/load-data.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 import { MetricsComponent } from './components/metrics/metrics.component';
+import { AlertingComponent } from './components/alerting/alerting.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -26,7 +27,8 @@ import { MetricsComponent } from './components/metrics/metrics.component';
     SummaryComponent,
     HomeComponent,
     LoadDataComponent,
-    MetricsComponent
+    MetricsComponent,
+    AlertingComponent
   ],
   exports:[
     LogsTableComponent,
