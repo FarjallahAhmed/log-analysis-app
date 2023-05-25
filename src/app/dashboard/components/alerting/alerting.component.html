@@ -18,7 +18,7 @@
           <label for="triggerCondition">Trigger Condition:</label>
           <select id="triggerCondition" name="triggerCondition" [(ngModel)]="triggerCondition" required class="form-select" aria-label="Default select example">
             <option value="logLevel">Log Level</option>
-            <option value="logPattern">Log Pattern</option>
+            <option value="logPattern">Exception</option>
             <!-- Add more trigger condition options here -->
           </select>
 
@@ -62,7 +62,7 @@
         </div>
       </form>
     </div>
-
+    <app-logs-table [alertingData]="alertingData"></app-logs-table>
   </div>
 </div>
 </div>

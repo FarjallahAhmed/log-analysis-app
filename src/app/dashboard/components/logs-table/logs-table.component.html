@@ -87,4 +87,64 @@
     </div>
 </div>
 
+<div class="container-fluid" *ngIf="alertingData">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Alert Configurations</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th style="width: 10%">Alert Name</th>
+              <th style="width: 10%">Trigger Condition</th>
+              <th style="width: 10%">Time Window</th>
+              <th style="width: 10%">Threshold Value</th>
+              <th style="width: 10%">Alert Description</th>
+              <th style="width: 10%">Status</th>
+              <th style="width: 10%">Notification Channel</th>
+              <th style="width: 10%">Escalation Level</th>
+              <th style="width: 10%">Status</th>
+              <th style="width: 10%">Delete</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th style="width: 10%">Alert Name</th>
+              <th style="width: 10%">Trigger Condition</th>
+              <th style="width: 10%">Time Window</th>
+              <th style="width: 10%">Threshold Value</th>
+              <th style="width: 10%">Alert Description</th>
+              <th style="width: 10%">Status</th>
+              <th style="width: 10%">Notification Channel</th>
+              <th style="width: 10%">Escalation Level</th>
+              <th style="width: 10%">Status</th>
+              <th style="width: 10%">Delete</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr *ngFor="let alert of alertingData">
+              <td>{{ alert.alertName }}</td>
+              <td>{{ alert.triggerCondition }}</td>
+              <td>{{ alert.timeWindow }}</td>
+              <td>{{ alert.thresholdValue }}</td>
+              <td>{{ alert.alertDescription }}</td>
+              <td>{{ alert.status ? 'Active' : 'Inactive' }}</td>
+              <td>{{ alert.notificationChannel }}</td>
+              <td>{{ alert.escalationLevel }}</td>
+              <td>
+                <button type="button" (click)="changeStatus(alert.id,alert)" [disabled]="!alert.status">Disable</button>
+              </td>
+              <td>
+                <button type="button" (click)="deleteAlert(alert)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
