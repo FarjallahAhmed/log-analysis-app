@@ -28,7 +28,8 @@ import { AlertingComponent } from './components/alerting/alerting.component';
     HomeComponent,
     LoadDataComponent,
     MetricsComponent,
-    AlertingComponent
+    AlertingComponent,
+
   ],
   exports:[
     LogsTableComponent,
