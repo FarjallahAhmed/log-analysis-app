@@ -2,18 +2,20 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { API_BASE_URL } from 'src/config';
 @Injectable({
   providedIn: 'root'
 })
 export class SummaryService {
 
-  private baseUrl= "http://localhost:8080/agg/";
+  private endpointUrlSummary = `${API_BASE_URL}/api/agg/`;
+  private endpointUrlReport = `${API_BASE_URL}/api/report/`;
 
   constructor(private http: HttpClient) { }
 
 
   getSummaryOfLogs(index: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}`+'summary/'+index).pipe(
+    return this.http.get<any>(`${this.endpointUrlSummary}`+'summary/'+index).pipe(
       map(response => {
         const logData = {
           totalLogs: response.totalLogs,
@@ -37,18 +39,16 @@ export class SummaryService {
     );
   }
 
-
-
   generateReportPDF(summary: any): any {
 
     const requestBody = summary;
 
-    return this.http.post<any>(`${this.baseUrl}`+'report',requestBody);
+    return this.http.post<any>(`${this.endpointUrlReport}`+'generate-report-pdf',requestBody);
 
   }
 
   getReportData(index: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}`+'summary/'+index).pipe(
+    return this.http.get<any>(`${this.endpointUrlSummary}`+'summary/'+index).pipe(
       map(response => {
         const logData = {
           totalLogs: response.totalLogs,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
+import { API_BASE_URL } from 'src/config';
 
 
 @Injectable({
@@ -10,14 +11,9 @@ import { concatMap } from 'rxjs/operators';
 export class LogsService {
 
 
-
-
-  private baseUrl = "http://localhost:9200/default_log_index/_search";
-
-  private basesUrlLoadData = "http://localhost:8080/load-data";
-  private baseUrlStartLogstash = "http://localhost:8080/start-logstash";
-  private baseUrlSpring = "http://localhost:8080/api/logs/exceptionlogs";
-  private baseUrlSpring2 = "http://localhost:8080/api/logs/simplelogs";
+  private endpointLoadData = `${API_BASE_URL}/load-data`;
+  private baseUrlStartLogstash = `${API_BASE_URL}/start-logstash`;
+  private endpointLogs = `${API_BASE_URL}/api/logs/`;
 
   constructor(private http: HttpClient) {}
 
@@ -28,7 +24,7 @@ export class LogsService {
       .set('pattern', pattern)
       .set('logstashFile', logstashFile);
 
-    return this.http.post(this.basesUrlLoadData,null,{params});
+    return this.http.post(this.endpointLoadData,null,{params});
   }
 
   startLogstash(pathFile: string, pattern:string, logstashFile:string) {
@@ -49,55 +45,13 @@ export class LogsService {
       );
   }
 
-  getLogs(): Observable<Object> {
-
-    const body = {
-      size: 369,
-      query: {
-        match_all: {},
-
-      }
-    };
-
-    return this.http.post(`${this.baseUrl}`, body);
-  }
-
-  getLogsByType(type : string): Observable<Object> {
-
-    const requestBody = {
-      query: {
-        match: {
-          loglevel: type
-        }
-      }
-    };
-
-    return this.http.post(`${this.baseUrl}`,requestBody);
-  }
-
-  getUniqueFieldValues(fieldName : string): Observable<Object> {
-
-    const requestBody = {
-        size: 0,
-        aggs: {
-          unique_values: {
-            terms: {
-              field: fieldName
-            }
-          }
-        }
-    };
-
-    return this.http.post(`${this.baseUrl}`,requestBody);
-  }
-
   getExceptionLogs(index:string): Observable<Object>{
-    return this.http.get(this.baseUrlSpring+"/"+index);
+    return this.http.get(`${this.endpointLogs}`+'retrive-exception/'+index);
   }
 
 
   getsimpleLogs(index: string): Observable<Object>{
-    return this.http.get(this.baseUrlSpring2+"/"+index);
+    return this.http.get(`${this.endpointLogs}`+"retrive-logs/"+index);
   }
 
 

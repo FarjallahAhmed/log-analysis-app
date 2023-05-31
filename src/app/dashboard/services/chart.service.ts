@@ -9,7 +9,7 @@ import {map} from 'rxjs/operators';
 export class ChartService {
 
 
-  private baseUrlSpring = "http://localhost:8080/agg/";
+  private baseUrlSpring = "http://localhost:8080/api/agg/";
 
 
   private baseUrl = "http://localhost:9200/default_log_index/_search";

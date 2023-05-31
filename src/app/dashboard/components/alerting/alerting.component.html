@@ -1,124 +1,129 @@
-<div class="container-fluid">
-  <div class="row">
-    <!-- Pie Chart -->
-    <div class="col-xl-4 col-lg-5">
-      <div class="d-flex justify-content-center h-100">
-        <div class="card in-down">
-          <div class="card-header">
-            <a class="navbar-brand">
-              <span class="quiz-title text-warning">Create Alert</span>
-            </a>
+<div class="content">
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Pie Chart -->
+        <div class="col-xl-4 col-lg-5">
+          <div class="d-flex justify-content-center h-100">
+            <div class="card in-down">
+              <div class="card-header">
+                <a class="navbar-brand">
+                  <span class="quiz-title text-warning">Create Alert</span>
+                </a>
+              </div>
+              <div class="card-body">
+                <form (ngSubmit)="saveAlertRule()">
+                  <div class="input-group form-group">
+                    <label for="alertName">Alert Name:</label>
+                    <input
+                      type="text"
+                      id="alertName"
+                      name="alertName"
+                      [(ngModel)]="alertName"
+                      required
+                      class="form-control"
+                    />
+                  </div>
+
+                  <div class="input-group form-group">
+                    <label for="triggerCondition">Trigger Condition:</label>
+                    <select
+                      id="triggerCondition"
+                      name="triggerCondition"
+                      [(ngModel)]="triggerCondition"
+                      required
+                      class="form-select"
+                      aria-label="Default select example"
+                    >
+                      <option value="logLevel">Log Level</option>
+                      <option value="logPattern">Exception</option>
+                      <!-- Add more trigger condition options here -->
+                    </select>
+                  </div>
+                  <div class="input-group form-group">
+                    <label for="timeWindow">Time Window:</label>
+                    <input
+                      type="text"
+                      id="timeWindow"
+                      name="timeWindow"
+                      [(ngModel)]="timeWindow"
+                      required
+                      class="form-control"
+                    />
+                  </div>
+
+                  <div class="input-group form-group">
+                    <label for="thresholdValue">Threshold Value:</label>
+                    <input
+                      class="form-control"
+                      type="number"
+                      id="thresholdValue"
+                      name="thresholdValue"
+                      [(ngModel)]="thresholdValue"
+                      required
+                    />
+                  </div>
+
+                  <div class="input-group form-group">
+                    <label for="notificationChannels"
+                      >Notification Channels:</label
+                    >
+                    <select
+                      id="notificationChannels"
+                      name="notificationChannels"
+                      [(ngModel)]="selectedChannels"
+                      class="form-select"
+                      aria-label="Multiple select example"
+                    >
+                      <option
+                        *ngFor="let channel of notificationChannels"
+                        [value]="channel"
+                      >
+                        {{ channel }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="input-group form-group">
+                    <label for="escalationLevels">Escalation Levels:</label>
+                    <select
+                      id="escalationLevels"
+                      name="escalationLevels"
+                      [(ngModel)]="selectedLevels"
+                      class="form-select"
+                      aria-label="Multiple select example"
+                    >
+                      <option
+                        *ngFor="let level of escalationLevels"
+                        [value]="level"
+                      >
+                        {{ level }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="input-group form-group">
+                    <label for="alertDescription">Alert Description:</label>
+                    <textarea
+                      id="alertDescription"
+                      name="alertDescription"
+                      [(ngModel)]="alertDescription"
+                    ></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <button type="submit">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
-          <div class="card-body">
-            <form (ngSubmit)="saveAlertRule()">
-              <div class="input-group form-group">
-                <label for="alertName">Alert Name:</label>
-                <input
-                  type="text"
-                  id="alertName"
-                  name="alertName"
-                  [(ngModel)]="alertName"
-                  required
-                  class="form-control"
-                />
-              </div>
+        </div>
 
-              <div class="input-group form-group">
-                <label for="triggerCondition">Trigger Condition:</label>
-                <select
-                  id="triggerCondition"
-                  name="triggerCondition"
-                  [(ngModel)]="triggerCondition"
-                  required
-                  class="form-select"
-                  aria-label="Default select example"
-                >
-                  <option value="logLevel">Log Level</option>
-                  <option value="logPattern">Exception</option>
-                  <!-- Add more trigger condition options here -->
-                </select>
-              </div>
-              <div class="input-group form-group">
-                <label for="timeWindow">Time Window:</label>
-                <input
-                  type="text"
-                  id="timeWindow"
-                  name="timeWindow"
-                  [(ngModel)]="timeWindow"
-                  required
-                  class="form-control"
-                />
-              </div>
-
-              <div class="input-group form-group">
-                <label for="thresholdValue">Threshold Value:</label>
-                <input
-                  class="form-control"
-                  type="number"
-                  id="thresholdValue"
-                  name="thresholdValue"
-                  [(ngModel)]="thresholdValue"
-                  required
-                />
-              </div>
-
-              <div class="input-group form-group">
-                <label for="notificationChannels">Notification Channels:</label>
-                <select
-                  id="notificationChannels"
-                  name="notificationChannels"
-                  [(ngModel)]="selectedChannels"
-                  class="form-select"
-                  aria-label="Multiple select example"
-                >
-                  <option
-                    *ngFor="let channel of notificationChannels"
-                    [value]="channel"
-                  >
-                    {{ channel }}
-                  </option>
-                </select>
-              </div>
-
-              <div class="input-group form-group">
-                <label for="escalationLevels">Escalation Levels:</label>
-                <select
-                  id="escalationLevels"
-                  name="escalationLevels"
-                  [(ngModel)]="selectedLevels"
-                  class="form-select"
-                  aria-label="Multiple select example"
-                >
-                  <option
-                    *ngFor="let level of escalationLevels"
-                    [value]="level"
-                  >
-                    {{ level }}
-                  </option>
-                </select>
-              </div>
-
-              <div class="input-group form-group">
-                <label for="alertDescription">Alert Description:</label>
-                <textarea
-                  id="alertDescription"
-                  name="alertDescription"
-                  [(ngModel)]="alertDescription"
-                ></textarea>
-              </div>
-
-              <div class="form-group">
-                <button type="submit">Save</button>
-              </div>
-            </form>
-          </div>
+        <div class="col-xl-8 col-lg-7">
+          <app-logs-table [alertingData]="alertingData"></app-logs-table>
         </div>
       </div>
     </div>
-
-    <div class="col-xl-8 col-lg-7">
-        <app-logs-table [alertingData]="alertingData"></app-logs-table>
-    </div>
-
   </div>
 </div>

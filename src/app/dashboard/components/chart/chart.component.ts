@@ -142,15 +142,6 @@ export class ChartComponent implements OnInit {
     };
   }
 
-
-  getAllLogs(){
-    this.logsService.getLogs().subscribe(data => {
-      this.response = data;
-      this.logs = this.response.hits.hits;
-      console.log(this.logs);
-    });
-  }
-
   onGenerateReport(){
     this.summaryService.getReportData(this.index).subscribe(
       data => {
