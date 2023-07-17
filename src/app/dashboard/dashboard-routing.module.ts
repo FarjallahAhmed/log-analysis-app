@@ -6,6 +6,7 @@ import { LoadDataComponent } from './components/load-data/load-data.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { AlertingComponent } from './components/alerting/alerting.component';
 import { MetricsComponent } from './components/metrics/metrics.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
     {path: 'home', component: HomeComponent },
     {path: 'load-data', component: LoadDataComponent},
     {path: 'alert',component:AlertingComponent},
-    {path: 'metric',component:MetricsComponent}
+    {path: 'metric',component:MetricsComponent},
+    {path: 'chatbot',component:ChatbotComponent}
     ]
   },
 ];

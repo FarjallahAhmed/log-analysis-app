@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 import { MetricsComponent } from './components/metrics/metrics.component';
 import { AlertingComponent } from './components/alerting/alerting.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -29,6 +30,7 @@ import { AlertingComponent } from './components/alerting/alerting.component';
     LoadDataComponent,
     MetricsComponent,
     AlertingComponent,
+    ChatbotComponent,
 
   ],
   exports:[

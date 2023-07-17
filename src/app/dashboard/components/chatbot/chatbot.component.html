@@ -1,0 +1,73 @@
+<div>
+  <div class="container">
+    <div [ngClass]="submitted ? 'maincard' : 'inviscard'" [style.marginTop]="submitted ? '10%' : '30%'">
+      <div *ngIf="submitted">
+        <img class="logo_white_bg" src="logo_white_bg.png" />
+      </div>
+      <div *ngIf="!submitted">
+        <img class="logo_grad_bg" src="logo_grad_bg.png" />
+      </div>
+      <br />
+
+      <div class="inputfieldcontainer form-group has-feedback">
+        <input
+          type="text"
+          class="form-control inputfield"
+          [(ngModel)]="query"
+          placeholder="Search Query"
+          (input)="onQueryChange()"
+        />
+        <i class="fas fa-search search_icon"></i>
+
+        <div class="row" style="margin-top: 10px">
+          <div class="col-md-6"></div>
+          <div class="col-12 col-md-6">
+            <div class="row">
+              <div class="col-9">
+                <h1 class="num_results_h1" [style.color]="submitted ? '#464646' : 'white'">
+                  No. of results to return:
+                </h1>
+              </div>
+              <div class="col-2">
+                <input
+                  type="number"
+                  class="form-control inputfield inputfield2"
+                  [(ngModel)]="numResults"
+                  (input)="onQueryChange()"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="tags.length > 0" class="inputfieldcontainer">
+        <h1 class="predicted_tags_h1">Predicted Tags</h1>
+        <span class="tags" *ngFor="let tag of tags">{{ tag }}</span>
+      </div>
+
+      <br /><br />
+
+      <a target="_blank" class="searchresultlink" [href]="result.url" *ngFor="let result of searchResults">
+        <div class="searchresult">
+          <div class="row">
+            <div class="col-12 col-md-2">
+              <h2 class="text-center">Votes</h2>
+              <h3 class="text-center">{{ result.votes }}</h3>
+            </div>
+            <div class="col-12 col-md-10">
+              <h1>{{ result.title }}</h1>
+              <p [innerHTML]="result.body"></p>
+              <h4>
+                Similarity Score:
+                <span style="color: #FF8319; font-family: 'Axiforma Bold'">{{ result.similarity_score }}</span>
+              </h4>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <br />
+    <br />
+  </div>
+</div>
