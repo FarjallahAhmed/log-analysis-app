@@ -32,4 +32,8 @@ export class AlertingServiceTsService {
   deleteAlertConfiguration(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+
+  triggerAlert(): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/trigger`,null);
+  }
 }

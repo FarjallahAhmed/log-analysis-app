@@ -53,6 +53,19 @@ export class AlertingComponent implements OnInit {
         // Handle the error during save
         console.error('Error saving Alert Configuration:', error);
       }
+    );
+    this.alertConfigurationService.triggerAlert()
+    .subscribe(
+      savedAlertConfiguration => {
+        // Handle the successful save
+        console.log('Alert triggerlaunched:', savedAlertConfiguration);
+        // Clear the form fields if needed
+        this.resetForm();
+      },
+      error => {
+        // Handle the error during save
+        console.error('Error saving Alert Configuration:', error);
+      }
     )
     this.resetForm();
   }
