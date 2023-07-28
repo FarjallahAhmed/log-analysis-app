@@ -15,7 +15,8 @@ export class LoadDataComponent implements OnInit{
   loadDataForm!: FormGroup;
 
 
-  filePath!: string;
+  fileLogPath!: string;
+  logstashConfigFile!:string;
   folderPath!: string;
   host!: string;
   port!: string;
@@ -26,8 +27,9 @@ export class LoadDataComponent implements OnInit{
   ngOnInit(): void {
     this.status = false;
     this.loadDataForm = this.formbuilder.group({
-      filePath: [null],
-      pattern: [null],
+      fileLogPath: [null],
+      logstashConfigFile: [null],
+      pattern: ["pattern"],
       folderPath: [null],
       host:[null],
       port:[null]
@@ -41,23 +43,51 @@ export class LoadDataComponent implements OnInit{
 
   onSubmitForm(){
 
-    this.filePath = this.loadDataForm.value['filePath'];
+    this.fileLogPath = this.loadDataForm.value['fileLogPath'];
+    this.logstashConfigFile = this.loadDataForm.value['logstashConfigFile'];
     this.pattern = this.loadDataForm.value['pattern'];
     this.folderPath = this.loadDataForm.value['folderPath'];
     this.host = this.loadDataForm.value['host'];
     this.port = this.loadDataForm.value['port'];
+    console.log("folder ",this.fileLogPath);
+/*
+    console.log("log data ",this.fileLogPath);
+    console.log("logstash config",this.logstashConfigFile);
+*/
+    if(this.fileLogPath !== null){
 
-    console.log("test");
-
-    if(this.filePath !== null){
-      /*this.logService.loadDataFromFile(this.filePath,this.pattern,this.filePath).subscribe(() =>{
+      this.logService.loadDataFromFile(this.fileLogPath,this.pattern,this.logstashConfigFile).subscribe(() =>{
         console.log("Data loaded successfully");
-      });*/
-      this.logService.startLogstash(this.filePath,this.pattern,this.filePath);
-      console.log(this.filePath);
-      console.log(this.pattern);
+      });
+      console.log("from file logstash conf",this.logstashConfigFile);
+      console.log("from file log path ",this.fileLogPath);
+      }
+    if(this.folderPath !== null){
+        this.logService.loadDataFromDirectory(this.folderPath,this.logstashConfigFile).subscribe(() =>{
+            console.log("Data loaded successfully");
+        });
+        console.log("from directory logstash conf",this.logstashConfigFile);
+        console.log("from directory folder log",this.folderPath);
     }
 
   }
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.logstashConfigFile = file.name;
+      this.loadDataForm.value["logstashConfigFile"] = file.name;
+      //console.log("from on select file logstash conf",this.logstashConfigFile);
+    }
+  }
+
+  onFileSelectedLog(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      //this.fileLogPath = file.name;
+
+      this.loadDataForm.value["fileLogPath"] = file.name;
+    }
+  }
+
 
 }

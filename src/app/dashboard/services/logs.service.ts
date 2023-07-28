@@ -11,38 +11,29 @@ import { API_BASE_URL } from 'src/config';
 export class LogsService {
 
 
-  private endpointLoadData = `${API_BASE_URL}/load-data`;
-  private baseUrlStartLogstash = `${API_BASE_URL}/start-logstash`;
+  private endpointLoadDataFromFile = `${API_BASE_URL}/load-data-from-file`;
+  private endpointLoadDataFromDirectory = `${API_BASE_URL}/load-data-from-directory`;
   private endpointLogs = `${API_BASE_URL}/api/logs/`;
 
   constructor(private http: HttpClient) {}
 
   loadDataFromFile(pathFile: string, pattern:string, logstashFile:string){
-    console.log("service");
+
     const params = new HttpParams()
       .set('pathFile', pathFile)
       .set('pattern', pattern)
       .set('logstashFile', logstashFile);
 
-    return this.http.post(this.endpointLoadData,null,{params});
+    return this.http.post(this.endpointLoadDataFromFile,null,{params});
   }
 
-  startLogstash(pathFile: string, pattern:string, logstashFile:string) {
-    this.loadDataFromFile(pathFile, pattern, logstashFile)
-      .pipe(
-        concatMap(() => {
-          console.log("Data loaded successfully.");
-          return this.http.post(this.baseUrlStartLogstash, {});
-        })
-      )
-      .subscribe(
-        () => {
-          console.log("Logstash started successfully.");
-        },
-        (error) => {
-          console.error("Error occurred:", error);
-        }
-      );
+  loadDataFromDirectory(directory: string,  logstashFile:string){
+
+    const params = new HttpParams()
+      .set('directory', directory)
+      .set('logstashFile', logstashFile);
+
+    return this.http.post(this.endpointLoadDataFromDirectory,null,{params});
   }
 
   getExceptionLogs(index:string): Observable<Object>{
