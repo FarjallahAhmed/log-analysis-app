@@ -1,11 +1,11 @@
 <div>
-  <div class="container">
+  <div class="container" >
     <div [ngClass]="submitted ? 'maincard' : 'inviscard'" [style.marginTop]="submitted ? '10%' : '30%'">
       <div *ngIf="submitted">
-        <img class="logo_white_bg" src="assets/images/logo_grad_bg.png" />
+        <img class="logo_grad_bg" src="assets/images/logo_white_bg.png" />
       </div>
       <div *ngIf="!submitted">
-        <img class="logo_grad_bg" src="assets/images/logo_grad_bg.png" />
+        <img class="logo_grad_bg" src="assets/images/logo_white_bg.png" />
       </div>
       <br />
 
