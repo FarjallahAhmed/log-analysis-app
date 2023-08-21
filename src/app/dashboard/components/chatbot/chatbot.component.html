@@ -15,7 +15,7 @@
           class="form-control inputfield"
           [(ngModel)]="query"
           placeholder="Search Query"
-          (input)="onQueryChange()"
+          (keyup.enter)="onQueryChange()"
         />
         <i class="fas fa-search search_icon"></i>
 
